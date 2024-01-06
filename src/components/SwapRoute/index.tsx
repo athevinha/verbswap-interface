@@ -61,8 +61,9 @@ const Route = ({
 	isFetchingGasPrice,
 	amountOut,
 	toTokenPrice,
-	amountIn
-}: IRoute) => {
+	amountIn,
+	aggregator
+}: any) => {
 	const { isApproved } = useTokenApprove(
 		fromToken?.address as `0x${string}`,
 		price?.tokenApprovalAddress as `0x${string}`,
@@ -72,7 +73,8 @@ const Route = ({
 	if (!price.amountReturned || (Number(gasUsd) === 0 && name !== 'CowSwap')) return null;
 
 	const amount = +price.amountReturned / 10 ** +toToken?.decimals;
-
+	console.log('#aggregator', aggregator);
+	if (index === 0 && !aggregator) setRoute();
 	const afterFees =
 		toTokenPrice && Number.isFinite(Number(toTokenPrice)) && netOut && Number.isFinite(Number(netOut))
 			? `$${formattedNum(netOut.toFixed(1), false, true)}`

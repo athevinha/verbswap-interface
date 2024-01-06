@@ -26,15 +26,15 @@ export default function FaqWrapper() {
 					<h2>
 						<AccordionButton>
 							<Box flex="1" textAlign="left">
-								Does DefiLlama take any fees?
+								Does VerbSwaptake any fees?
 							</Box>
 							<AccordionIcon />
 						</AccordionButton>
 					</h2>
 					<AccordionPanel pb={4}>
-						DefiLlama takes 0 fee on swaps.
+						VerbSwaptakes 0 fee on swaps.
 						<br />
-						<br /> You'll get the exact same price swapping through DefiLlama as what you'd get swapping through the
+						<br /> You'll get the exact same price swapping through VerbSwapas what you'd get swapping through the
 						chosen aggregator directly.
 						<br />
 						<br />
@@ -68,12 +68,14 @@ export default function FaqWrapper() {
 						</AccordionButton>
 					</h2>
 					<AccordionPanel pb={4}>
-						We inflate gas limit of txs on MetaMask by +40% to ensure that there's nothing unexpected that could trigger out-of-gas reverts. This stacks
-						on top of any increase your RPC might apply on gas estimations, along with possible different gas prices between your metamask and our estimation.
+						We inflate gas limit of txs on MetaMask by +40% to ensure that there's nothing unexpected that could trigger
+						out-of-gas reverts. This stacks on top of any increase your RPC might apply on gas estimations, along with
+						possible different gas prices between your metamask and our estimation.
 						<br />
 						<br />
-						All this together means that gas number you see on metamask will always be inflated, while in our UI we display the actual gas that the tx will consume. 
-						The extra gas that is not used is just refunded to the user when tx executes.
+						All this together means that gas number you see on metamask will always be inflated, while in our UI we
+						display the actual gas that the tx will consume. The extra gas that is not used is just refunded to the user
+						when tx executes.
 					</AccordionPanel>
 				</AccordionItem>
 				<AccordionItem>
@@ -104,8 +106,8 @@ export default function FaqWrapper() {
 						</AccordionButton>
 					</h2>
 					<AccordionPanel pb={4}>
-						Some ETH orders on CowSwap might not get filled because price moves against you too quickly,
-						in those cases the ETH just sits in a contract until it is refunded 30 minutes after your tx.
+						Some ETH orders on CowSwap might not get filled because price moves against you too quickly, in those cases
+						the ETH just sits in a contract until it is refunded 30 minutes after your tx.
 					</AccordionPanel>
 				</AccordionItem>
 			</Accordion>

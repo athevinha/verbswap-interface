@@ -67,6 +67,7 @@ import { formatAmount } from '~/utils/formatAmount';
 import { RefreshIcon } from '../RefreshIcon';
 import { filterPoolAllowCandleChart, useOHLCVpool, useTopPools } from '~/hooks/useTopPools';
 import PriceChart from './priceChart';
+import { useWindowSize } from '~/hooks/useWindowSize';
 
 /*
 Integrated:
@@ -173,6 +174,7 @@ const Wrapper = styled.div`
 
 	@media screen and (max-width: ${({ theme }) => theme.bpMed}) {
 		flex-direction: column;
+		top: 46px;
 		display: flex;
 	}
 `;
@@ -208,7 +210,7 @@ const Routes = styled.div<{ visible: boolean }>`
 
 	@media screen and (max-width: ${({ theme }) => theme.bpMed}) {
 		z-index: 10;
-		background-color: #22242a;
+		background-color: black;
 		position: absolute;
 		box-shadow: none;
 		clip-path: ${({ visible }) => (visible ? 'inset(0 0 0 0);' : 'inset(0 0 0 100%);')};
@@ -378,6 +380,7 @@ export function AggregatorContainer({ tokenList, sandwichList }) {
 	const { selectedChain, selectedFromToken, selectedToToken, chainTokenList } = useSelectedChainAndTokens({
 		tokens: tokenList
 	});
+
 	const isValidSelectedChain = selectedChain && chainOnWallet ? selectedChain.id === chainOnWallet.id : false;
 	const isOutputTrade = amountOut && amountOut !== '';
 
@@ -963,8 +966,9 @@ export function AggregatorContainer({ tokenList, sandwichList }) {
 
 	const { topPoolsOfToken, dtChainID } = useTopPools();
 	const [resolution, setResolution] = useState<string>('1-day');
-	const { susscessOHLCVs } = useOHLCVpool(dtChainID, filterPoolAllowCandleChart(topPoolsOfToken[0])?.[0],resolution);
+	const { susscessOHLCVs } = useOHLCVpool(dtChainID, topPoolsOfToken[0]?.[0], resolution);
 	console.log('#susscessOHLCV', susscessOHLCVs);
+	const { isPhone } = useWindowSize();
 	return (
 		<Wrapper>
 			{isSettingsModalOpen ? (
@@ -983,7 +987,7 @@ export function AggregatorContainer({ tokenList, sandwichList }) {
 							<Flex>
 								<Box>Chain</Box>
 								<Spacer />
-								<Tooltip content="Redirect requests through the DefiLlama Server to hide your IP address">
+								<Tooltip content="Redirect requests through the VerbSwap server to hide your IP address">
 									<FormControl display="flex" alignItems="baseline" gap="6px" justifyContent={'center'}>
 										<FormLabel htmlFor="privacy-switch" margin={0} fontSize="14px" color="gray.400">
 											Hide IP
@@ -1237,7 +1241,7 @@ export function AggregatorContainer({ tokenList, sandwichList }) {
 				</Body>
 
 				<Routes ref={routesRef} visible={uiState === STATES.ROUTES}>
-					{topPoolsOfToken?.length > 0 && topPoolsOfToken[0].length > 0 ? (
+					{topPoolsOfToken?.length > 0 && topPoolsOfToken[0].length > 0 && !isPhone ? (
 						<Box
 							style={{
 								overflow: 'hidden',
@@ -1324,6 +1328,7 @@ export function AggregatorContainer({ tokenList, sandwichList }) {
 								{...r}
 								index={i}
 								selected={aggregator === r.name}
+								aggregator={aggregator}
 								setRoute={() => {
 									if (isSmallScreen) toggleUi();
 									setAggregator(r.name);
@@ -1473,6 +1478,24 @@ export function AggregatorContainer({ tokenList, sandwichList }) {
 				</Routes>
 			</BodyWrapper>
 
+			{topPoolsOfToken?.length > 0 && topPoolsOfToken[0].length > 0 && isPhone ? (
+				<Box
+					style={{
+						overflow: 'hidden',
+						maxWidth: '100vw',
+						marginTop: '5px'
+					}}
+				>
+					<PriceChart
+						resolution={resolution}
+						setResolution={setResolution}
+						pool={filterPoolAllowCandleChart(topPoolsOfToken[0])[0]}
+						ohlcvs={susscessOHLCVs}
+					/>
+				</Box>
+			) : (
+				''
+			)}
 			{/* {window === parent ? <FAQs /> : null} */}
 
 			<TransactionModal open={txModalOpen} setOpen={setTxModalOpen} link={txUrl} />

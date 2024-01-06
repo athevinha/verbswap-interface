@@ -91,12 +91,14 @@ export async function getTokenList() {
 		(
 			await Promise.all(
 				DEFAULT_LIST_OF_LISTS.map((url) => {
-					return fetch(url).then((r) => r.json());
+					return fetch(url)
+						.then((r) => r.json())
+						.catch((e) => []);
 				})
 			).catch((e) => {
-				return { tokens: [] };
+				return [];
 			})
-		).map((list) => list.tokens) as any[][]
+		)?.map((list) => list.tokens) as any[][]
 	).flat();
 	// const hecoList = await fetch('https://token-list.sushi.com/').then((r) => r.json()); // same as sushi
 	// const lifiList = await fetch('https://li.quest/v1/tokens').then((r) => r.json());

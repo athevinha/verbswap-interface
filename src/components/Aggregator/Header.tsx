@@ -43,6 +43,10 @@ const Name = styled(Heading)`
 `;
 
 const HeaderOption = styled.div`
+	:hover {
+		color: #9ae6b4;
+	}
+	transition: 0.2s;
 	cursor: pointer;
 	color: gray;
 	margin-left: 15px;
@@ -59,7 +63,7 @@ const Header = ({ children }) => {
 					fontSize={['26px', '26px', '32px', '32px']}
 					display="flex"
 					alignItems="center"
-					onClick={() => window.open('https://app.verbswap.xyz/')}
+					onClick={() => window.open('/')}
 					cursor="pointer"
 				>
 					<Image
@@ -82,17 +86,41 @@ const Header = ({ children }) => {
 						>
 							Swap
 						</HeaderOption>
-						<HeaderOption></HeaderOption>
-						<HeaderOption></HeaderOption>
-						<Link href={'/deposit'}>Deposit</Link>
-						<Link href={'/tokens'}>Tokens</Link>
-						<HeaderOption>
-							<Link href={'/analytics'}>Analytics</Link>
+						<HeaderOption
+							onClick={() => {
+								router.push('/deposit');
+							}}
+						>
+							Deposit
 						</HeaderOption>
-						<HeaderOption>
-							<Link href={'/about'}>About</Link>
+						<HeaderOption
+							onClick={() => {
+								router.push('/tokens');
+							}}
+						>
+							Tokens
 						</HeaderOption>
-						<HeaderOption>Docs</HeaderOption>
+						<HeaderOption
+							onClick={() => {
+								router.push('/analytics');
+							}}
+						>
+							Analytics
+						</HeaderOption>
+						<HeaderOption
+							onClick={() => {
+								router.push('/about');
+							}}
+						>
+							About
+						</HeaderOption>
+						<HeaderOption
+							onClick={() => {
+								router.push('/');
+							}}
+						>
+							Docs
+						</HeaderOption>
 					</Fragment>
 				)}
 			</Box>

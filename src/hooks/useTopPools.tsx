@@ -85,9 +85,7 @@ export function useOHLCVpool(gtChain, pool: ITopPoolGK, resolution: string) {
 						queryKey: ['ohlcv', resolution.split('-')[1], resolution.split('-')[0], pool.id, gtChain],
 						queryFn: () =>
 							getOHLCVPool(pool.id.split('_')[1], gtChain, resolution.split('-')[1], resolution.split('-')[0]),
-						refetchInterval: 100000,
-						refetchOnWindowFocus: false,
-						refetchIntervalInBackground: false
+						refetchInterval: 100000
 				  }
 				: null
 		]

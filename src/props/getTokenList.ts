@@ -142,7 +142,7 @@ export async function getTokenList() {
 	const tokensByChain = mapValues(
 		groupBy(
 			[
-				...ListOfLists,
+				// ...ListOfLists,
 				...nativeTokens,
 				...ownTokenList,
 				...oneInchList,

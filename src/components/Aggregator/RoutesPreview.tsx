@@ -3,6 +3,7 @@ import { Box, Flex, Heading, Link, Text, Image } from '@chakra-ui/react';
 import styled from 'styled-components';
 import { AggIcons, LlamaIcon, SmolCheck } from '../Icons';
 import VerbswapIcon from "~/public/favicon.png" 
+import HeaderBackground from '~/assets/image/people.png';
 const IconsBody = styled.div`
 	display: flex;
 	width: fit-content;
@@ -49,7 +50,8 @@ const Header = styled.div`
 const CheckBody = styled.div`
 	color: rgb(112, 160, 247);
 	display: flex;
-	justify-content: space-around;
+	gap: 16px;
+	justify-content: center;
 	margin-top: 16px;
 `;
 
@@ -63,20 +65,12 @@ const CheckWithText = ({ text }: { text: string }) => {
 
 const RoutesPreview = () => {
 	return (
-		<Flex pt="30px" flexDir="column" justifyContent="space-around" h="100%">
+		<Flex pt="30px" flexDir="column" justifyContent="space-around">
 			<Header>
-				<MainIcon>
-					<Image src={VerbswapIcon.src} w={100} borderRadius='10PX'></Image>
-				</MainIcon>
-
-				<IconsBody>
-					{[...AggIcons, ...AggIcons].map((Icon, i) => (
-						<IconElem key={i}>{Icon}</IconElem>
-					))}
-				</IconsBody>
+				<Image src={HeaderBackground.src} w="100%" borderRadius="10PX"></Image>
 			</Header>
-			<Box zIndex={1}>
-				<Heading size={'md'} textAlign="center" mt={'4'}>
+			<Box zIndex={1} mt={1}>
+				<Heading size={'md'} textAlign="center">
 					The Aggregator of Aggregators
 				</Heading>
 				<CheckBody>
@@ -89,7 +83,7 @@ const RoutesPreview = () => {
 					VerbSwap looks for the best route for your trade <br /> among a variety of Dex Aggregators, guaranteeing you{' '}
 					<br /> the best execution prices in DeFi.
 					<br /> <br /> Try it now or{' '}
-					<Link href="https://twitter.com/defillama/status/1609989799653285888" isExternal textDecoration={'underline'}>
+					<Link href="#" isExternal textDecoration={'underline'}>
 						learn more
 						<ExternalLinkIcon mx="4px" mb="3px" />
 					</Link>

@@ -87,19 +87,19 @@ export async function getTokenList() {
 	).catch((e) => {
 		return {};
 	});
-	const ListOfLists = (
-		(
-			await Promise.all(
-				DEFAULT_LIST_OF_LISTS.map((url) => {
-					return fetch(url)
-						.then((r) => r.json())
-						.catch((e) => []);
-				})
-			).catch((e) => {
-				return [];
-			})
-		)?.map((list) => list.tokens) as any[][]
-	).flat();
+	// const ListOfLists = (
+	// 	(
+	// 		await Promise.all(
+	// 			DEFAULT_LIST_OF_LISTS.map((url) => {
+	// 				return fetch(url)
+	// 					.then((r) => r.json())
+	// 					.catch((e) => []);
+	// 			})
+	// 		).catch((e) => {
+	// 			return [];
+	// 		})
+	// 	)?.map((list) => list.tokens) as any[][]
+	// ).flat();
 	// const hecoList = await fetch('https://token-list.sushi.com/').then((r) => r.json()); // same as sushi
 	// const lifiList = await fetch('https://li.quest/v1/tokens').then((r) => r.json());
 
@@ -141,7 +141,7 @@ export async function getTokenList() {
 	const tokensByChain = mapValues(
 		groupBy(
 			[
-				...ListOfLists,
+				// ...ListOfLists,
 				...nativeTokens,
 				...ownTokenList,
 				...oneInchList,

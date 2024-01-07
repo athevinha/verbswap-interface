@@ -68,6 +68,7 @@ import { RefreshIcon } from '../RefreshIcon';
 import { filterPoolAllowCandleChart, useOHLCVpool, useTopPools } from '~/hooks/useTopPools';
 import PriceChart from './priceChart';
 import { useWindowSize } from '~/hooks/useWindowSize';
+import { useTokenList } from '~/hooks/useTokenList';
 
 /*
 Integrated:
@@ -335,7 +336,8 @@ const ConnectButtonWrapper = styled.div`
 
 const chains = getAllChains();
 
-export function AggregatorContainer({ tokenList, sandwichList }) {
+export function AggregatorContainer({ sandwichList }) {
+	const tokenList = useTokenList();
 	// wallet stuff
 	const { data: signer } = useSigner();
 	const { address, isConnected } = useAccount();
@@ -964,10 +966,10 @@ export function AggregatorContainer({ tokenList, sandwichList }) {
 		pairSandwichData ? <Sandwich sandiwichData={pairSandwichData} key="sandwich" /> : null
 	].filter(Boolean);
 
-	const { topPoolsOfToken, dtChainID } = useTopPools();
+	const { topPoolsOfToken, gtChainId } = useTopPools();
 	const [resolution, setResolution] = useState<string>('1-day');
-	const { susscessOHLCVs } = useOHLCVpool(dtChainID, topPoolsOfToken[0]?.[0], resolution);
-	console.log('#susscessOHLCV', susscessOHLCVs);
+	const { susscessOHLCVs } = useOHLCVpool(gtChainId, topPoolsOfToken[0]?.[0], resolution);
+
 	const { isPhone } = useWindowSize();
 	return (
 		<Wrapper>
@@ -1241,7 +1243,7 @@ export function AggregatorContainer({ tokenList, sandwichList }) {
 				</Body>
 
 				<Routes ref={routesRef} visible={uiState === STATES.ROUTES}>
-					{topPoolsOfToken?.length > 0 && topPoolsOfToken[0].length > 0 && !isPhone ? (
+					{!isPhone ? (
 						<Box
 							style={{
 								overflow: 'hidden',
@@ -1252,7 +1254,7 @@ export function AggregatorContainer({ tokenList, sandwichList }) {
 							<PriceChart
 								resolution={resolution}
 								setResolution={setResolution}
-								pool={filterPoolAllowCandleChart(topPoolsOfToken[0])[0]}
+								pool={filterPoolAllowCandleChart(topPoolsOfToken[0])?.[0]}
 								ohlcvs={susscessOHLCVs}
 							/>
 						</Box>

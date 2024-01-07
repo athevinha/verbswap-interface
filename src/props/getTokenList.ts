@@ -9,7 +9,7 @@ import { ownTokenList } from '~/constants/tokenlist';
 import { protoclIconUrl } from '~/utils';
 import multichainListRaw from '../data/multichain/250.json';
 import fetch from 'node-fetch';
-import { DEFAULT_LIST_OF_LISTS } from '~/constants/listTokens';
+import { DEFAULT_ACTIVE_LIST_URLS, DEFAULT_LIST_OF_LISTS } from '~/constants/listTokens';
 const tokensToRemove = {
 	1: {
 		['0xB8c77482e45F1F44dE1745F52C74426C631bDD52'.toLowerCase()]: true
@@ -87,19 +87,19 @@ export async function getTokenList() {
 	).catch((e) => {
 		return {};
 	});
-	const ListOfLists = (
-		(
-			await Promise.all(
-				DEFAULT_LIST_OF_LISTS.map((url) => {
-					return fetch(url)
-						.then((r) => r.json())
-						.catch((e) => []);
-				})
-			).catch((e) => {
-				return [];
-			})
-		)?.map((list) => list.tokens) as any[][]
-	).flat();
+	// const ListOfLists = (
+	// 	(
+	// 		await Promise.all(
+	// 			DEFAULT_ACTIVE_LIST_URLS.map((url) => {
+	// 				return fetch(url)
+	// 					.then((r) => r.json())
+	// 					.catch((e) => []);
+	// 			})
+	// 		).catch((e) => {
+	// 			return [];
+	// 		})
+	// 	)?.map((list) => list.tokens) as any[][]
+	// ).flat();
 	// const hecoList = await fetch('https://token-list.sushi.com/').then((r) => r.json()); // same as sushi
 	// const lifiList = await fetch('https://li.quest/v1/tokens').then((r) => r.json());
 
@@ -113,6 +113,7 @@ export async function getTokenList() {
 				}))
 			)
 			.catch((e) => []),
+
 		fetch('https://defillama-datasets.llama.fi/tokenlist/all.json').then((res) => res.json()),
 		fetch('https://defillama-datasets.llama.fi/tokenlist/logos.json').then((res) => res.json()),
 		fetch('https://raw.githubusercontent.com/0xngmi/tokenlists/master/canto.json')
@@ -258,7 +259,7 @@ export async function getTokenList() {
 	for (const chain in tokensFiltered) {
 		tokenlist[chain] = [...formatAndSortTokens(tokensFiltered[chain] || [], chain), ...(cgList[chain] || [])];
 	}
-
+	console.log('#', tokenlist);
 	return tokenlist;
 }
 
@@ -341,7 +342,7 @@ export const getTopTokensByChain = async (chainId) => {
 		const resIncluded = [];
 
 		let prevRes = await fetch(
-			`https://app.geckoterminal.com/api/p1/${geckoTerminalChainsMap[chainId]}/pools?include=dex%2Cdex.network%2Cdex.network.network_metric%2Ctokens&page=1&include_network_metrics=true`
+			`https://api.geckoterminal.com/api/v2/networks/${geckoTerminalChainsMap[chainId]}/pools?include=base_token%2Cquote_token%2Cdex&page=1`
 		).then((res) => res.json());
 
 		for (let i = 0; i < 5; i++) {

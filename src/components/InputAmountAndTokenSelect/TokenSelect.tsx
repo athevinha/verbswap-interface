@@ -1,7 +1,7 @@
 import { ethers } from 'ethers';
 import { useMemo, useRef, useState } from 'react';
 import { useVirtualizer } from '@tanstack/react-virtual';
-import { Modal, ModalOverlay, ModalContent, ModalCloseButton, useDisclosure, Input } from '@chakra-ui/react';
+import { Modal, ModalOverlay, ModalContent, ModalCloseButton, useDisclosure, Input, Skeleton } from '@chakra-ui/react';
 import { WarningTwoIcon } from '@chakra-ui/icons';
 import { Header, IconImage, PairRow } from '../Aggregator/Search';
 import { useToken } from 'wagmi';
@@ -23,7 +23,11 @@ const Row = ({ chain, token, onClick }) => {
 			data-defaultcursor={token.isGeckoToken ? true : false}
 			onClick={() => !token.isGeckoToken && onClick(token)}
 		>
-			<IconImage loading="lazy" src={token.logoURI} onError={(e) => (e.currentTarget.src = token.logoURI2 || '/placeholder.png')} />
+			<IconImage
+				loading="lazy"
+				src={token.logoURI}
+				onError={(e) => (e.currentTarget.src = token.logoURI2 || '/placeholder.png')}
+			/>
 
 			<Text display="flex" flexDir="column" whiteSpace="nowrap" textOverflow="ellipsis" overflow="hidden">
 				<Tooltip
@@ -173,14 +177,14 @@ const AddToken = ({ address, selectedChain, onClick }) => {
 	);
 };
 const HideScroll = styled.div`
-  /* Hiding scrollbar for Chrome, Safari, and Opera */
-  &::-webkit-scrollbar {
-    display: none;
-  }
+	/* Hiding scrollbar for Chrome, Safari, and Opera */
+	&::-webkit-scrollbar {
+		display: none;
+	}
 
-  /* Hiding scrollbar for IE, Edge, and Firefox */
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE and Edge */
+	/* Hiding scrollbar for IE, Edge, and Firefox */
+	scrollbar-width: none; /* Firefox */
+	-ms-overflow-style: none; /* IE and Edge */
 `;
 
 const SelectModal = ({ isOpen, onClose, data, onClick, selectedChain }) => {
@@ -246,9 +250,9 @@ const SelectModal = ({ isOpen, onClose, data, onClick, selectedChain }) => {
 					<Input
 						bg="#000000"
 						placeholder="Search... (Symbol or Address)"
-						outlineColor='#000000'
+						outlineColor="#000000"
 						_focusVisible={{ outline: 'none' }}
-						_before={{outline:'none'}}
+						_before={{ outline: 'none' }}
 						onChange={onInputChange}
 						autoFocus
 					/>
@@ -333,10 +337,13 @@ export const TokenSelect = ({ tokens, onClick, token, selectedChain }) => {
 				>
 					{token?.isMultichain ? <WarningTwoIcon color={'orange.200'} /> : <></>}
 				</Tooltip>
-
-				<Text as="span" color="white" overflow="hidden" whiteSpace="nowrap" textOverflow="ellipsis" fontWeight={400}>
-					{token ? token.symbol : 'Select Token'}
-				</Text>
+				{tokens.length > 0 ? (
+					<Text as="span" color="white" overflow="hidden" whiteSpace="nowrap" textOverflow="ellipsis" fontWeight={400}>
+						{token ? token.symbol : 'Select Token'}
+					</Text>
+				) : (
+					<Skeleton height="20px" width="100%" />
+				)}
 
 				<ChevronDown size={16} style={{ marginLeft: 'auto' }} />
 			</Button>

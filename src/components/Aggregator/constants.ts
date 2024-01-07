@@ -157,6 +157,9 @@ export const geckoTerminalChainsMap = {
 export const chainIdToName = (chainId) => {
 	return Object.entries(chainsMap).find(([, id]) => String(id) === String(chainId))?.[0];
 };
+export const chainNameToId = (chainName) => {
+	return Object.entries(chainsMap).find(([name, id]) => String(name) === String(chainName))?.[1];
+};
 
 export const chainNamesReplaced = {
 	bsc: 'BSC',

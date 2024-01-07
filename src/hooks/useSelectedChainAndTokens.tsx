@@ -16,7 +16,7 @@ export function useSelectedChainAndTokens({ tokens }) {
 
 		const selectedChain = chains.find((c) => c.value === chainName);
 
-		const selectedFromToken = tokenList?.find((t) => t.address.toLowerCase() === fromTokenAddress);
+		const selectedFromToken = tokenList?.find((t) => t.address.toLowerCase() === fromTokenAddress) || tokenList?.[0];
 
 		const selectedToToken = tokenList?.find((t) => t.address.toLowerCase() === toTokenAddress);
 

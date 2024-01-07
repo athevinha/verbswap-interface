@@ -1,9 +1,8 @@
 import { useMemo } from 'react';
-import { chainsMap } from '~/components/Aggregator/constants';
+import { chainNameToId, chainsMap, geckoTerminalChainsMap } from '~/components/Aggregator/constants';
 import { getAllChains } from '~/components/Aggregator/router';
 import { IOHLCV, IToken, ITopPoolGK } from '~/types';
 import { useQueryParams } from './useQueryParams';
-import gtChains from '~/constants/chainList.json';
 import { useQueries } from '@tanstack/react-query';
 import { candleDexValid } from '~/components/Aggregator/list';
 const chains = getAllChains();
@@ -43,23 +42,24 @@ export function filterPoolAllowCandleChart(pools: ITopPoolGK[]) {
 }
 export function useTopPools() {
 	const { chainName, fromTokenAddress, toTokenAddress } = useQueryParams();
-	const gtChain = gtChains.filter(
-		(gt) =>
-			stringIncludeString(gt.id, chainName) ||
-			stringIncludeString(gt.attributes.name, chainName) ||
-			stringIncludeString(gt.attributes.capi, chainName)
-	)[0];
+	const chainID = chainNameToId(chainName.toLowerCase());
+	const gtChainId = geckoTerminalChainsMap[chainID];
+	console.log('#gtChainId', gtChainId, chainID);
 	const res = useQueries({
 		queries: [
 			{
-				queryKey: ['topPools', toTokenAddress, gtChain.id],
-				queryFn: () => getTopPools(toTokenAddress, gtChain.id),
+				queryKey: ['topPools', toTokenAddress, gtChainId],
+				queryFn: () => getTopPools(toTokenAddress, gtChainId),
 				refetchInterval: 100000
+				// refetchOnWindowFocus: false,
+				// refetchIntervalInBackground: false
 			},
 			{
-				queryKey: ['topPools', fromTokenAddress, gtChain.id],
-				queryFn: () => getTopPools(fromTokenAddress, gtChain.id),
+				queryKey: ['topPools', fromTokenAddress, gtChainId],
+				queryFn: () => getTopPools(fromTokenAddress, gtChainId),
 				refetchInterval: 100000
+				// refetchOnWindowFocus: false,
+				// refetchIntervalInBackground: false
 			}
 		]
 	});
@@ -73,7 +73,7 @@ export function useTopPools() {
 		isLoading: data.length >= 1 ? false : true,
 		topPoolsOfToken: susscessPools ?? [],
 		refetch: () => res?.forEach((r) => r.refetch()),
-		dtChainID: gtChain.dt_id,
+		gtChainId,
 		loadingPools
 	};
 }
@@ -85,7 +85,9 @@ export function useOHLCVpool(gtChain, pool: ITopPoolGK, resolution: string) {
 						queryKey: ['ohlcv', resolution.split('-')[1], resolution.split('-')[0], pool.id, gtChain],
 						queryFn: () =>
 							getOHLCVPool(pool.id.split('_')[1], gtChain, resolution.split('-')[1], resolution.split('-')[0]),
-						refetchInterval: 100000
+						refetchInterval: 100000,
+						refetchOnWindowFocus: false,
+						refetchIntervalInBackground: false
 				  }
 				: null
 		]
@@ -111,7 +113,7 @@ export function useOHLCVpool(gtChain, pool: ITopPoolGK, resolution: string) {
 				};
 			}) || []) as IOHLCV[],
 		refetch: () => res?.forEach((r) => r.refetch()),
-		dtChainID: gtChain.dt_id,
+		dtChainID: gtChain,
 		loadingPools
 	};
 }

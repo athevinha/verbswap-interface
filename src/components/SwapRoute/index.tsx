@@ -73,7 +73,6 @@ const Route = ({
 	if (!price.amountReturned || (Number(gasUsd) === 0 && name !== 'CowSwap')) return null;
 
 	const amount = +price.amountReturned / 10 ** +toToken?.decimals;
-	console.log('#aggregator', aggregator);
 	if (index === 0 && !aggregator) setRoute();
 	const afterFees =
 		toTokenPrice && Number.isFinite(Number(toTokenPrice)) && netOut && Number.isFinite(Number(netOut))

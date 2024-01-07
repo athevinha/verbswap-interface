@@ -82,6 +82,8 @@ const Header = ({ children }) => {
 						>
 							Swap
 						</HeaderOption>
+						<HeaderOption></HeaderOption>
+						<HeaderOption></HeaderOption>
 						<Link href={'/deposit'}>Deposit</Link>
 						<Link href={'/tokens'}>Tokens</Link>
 						<HeaderOption>

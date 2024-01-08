@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import { AggIcons, LlamaIcon, SmolCheck } from '../Icons';
 import VerbswapIcon from "~/public/favicon.png" 
 import HeaderBackground from '~/assets/image/people.png';
+import { useRouter } from 'next/router';
+import { useRef } from 'react';
 const IconsBody = styled.div`
 	display: flex;
 	width: fit-content;
@@ -62,11 +64,19 @@ const CheckWithText = ({ text }: { text: string }) => {
 		</div>
 	);
 };
-
 const RoutesPreview = () => {
+	const videoRef = useRef(null);
+	const setPlayBack = () => {
+		videoRef.current.playbackRate = 5.5;
+	};
 	return (
 		<Flex pt="30px" flexDir="column" justifyContent="space-around">
 			<Header>
+				{/* <video width="auto" height="500px" loop autoPlay muted ref={videoRef} onCanPlay={() => setPlayBack()}>
+					<source src={`${window.location.origin}/people.mp4`} type="video/mp4" />
+					<source src={`${window.location.origin}/people.ogg`} type="video/ogg" />
+					Your browser does not support the video tag.
+				</video> */}
 				<Image src={HeaderBackground.src} w="100%" borderRadius="10PX"></Image>
 			</Header>
 			<Box zIndex={1} mt={1}>

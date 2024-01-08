@@ -50,16 +50,16 @@ export function useTopPools() {
 			{
 				queryKey: ['topPools', toTokenAddress, gtChainId],
 				queryFn: () => getTopPools(toTokenAddress, gtChainId),
-				refetchInterval: 100000
-				// refetchOnWindowFocus: false,
-				// refetchIntervalInBackground: false
+				refetchInterval: 100000,
+				refetchOnWindowFocus: true,
+				refetchIntervalInBackground: false
 			},
 			{
 				queryKey: ['topPools', fromTokenAddress, gtChainId],
 				queryFn: () => getTopPools(fromTokenAddress, gtChainId),
-				refetchInterval: 100000
-				// refetchOnWindowFocus: false,
-				// refetchIntervalInBackground: false
+				refetchInterval: 100000,
+				refetchOnWindowFocus: true,
+				refetchIntervalInBackground: false
 			}
 		]
 	});
@@ -78,23 +78,29 @@ export function useTopPools() {
 	};
 }
 export function useOHLCVpool(gtChain, pool: ITopPoolGK, resolution: string) {
+	console.log(pool);
 	const res = useQueries({
 		queries: [
-			pool
-				? {
-						queryKey: ['ohlcv', resolution.split('-')[1], resolution.split('-')[0], pool.id, gtChain],
-						queryFn: () =>
-							getOHLCVPool(pool.id.split('_')[1], gtChain, resolution.split('-')[1], resolution.split('-')[0]),
-						refetchInterval: 100000
-				  }
-				: null
+			{
+				queryKey: [
+					'ohlcv',
+					resolution.split('-')[1] || 'query null',
+					resolution.split('-')?.[0],
+					pool?.id || '',
+					gtChain
+				],
+				queryFn: () =>
+					getOHLCVPool(pool?.id?.split('_')?.[1], gtChain, resolution.split('-')[1], resolution.split('-')[0]),
+				refetchInterval: 100000,
+				refetchOnWindowFocus: true,
+				enabled: pool !== null
+			}
 		]
 	});
 	const data = res?.filter((r) => r.status === 'success') ?? [];
 	const susscessOHLCVs: any[][] =
 		(res?.filter((r) => r.status === 'success' && !!r.data && r.data) ?? []).map((r) => r.data) ?? [];
 	const loadingPools = res?.filter((r) => r.status === 'loading') ?? [];
-
 	return {
 		isLoaded: loadingPools.length === 0,
 		isLoading: data.length >= 1 ? false : true,

@@ -968,7 +968,12 @@ export function AggregatorContainer({ sandwichList }) {
 
 	const { topPoolsOfToken, gtChainId } = useTopPools();
 	const [resolution, setResolution] = useState<string>('1-day');
-	const { susscessOHLCVs } = useOHLCVpool(gtChainId, topPoolsOfToken[0]?.[0], resolution);
+	const {
+		susscessOHLCVs,
+		isLoading: isOHLCVLoading,
+		isLoaded: isOHLCVLoaded,
+		loadingPools
+	} = useOHLCVpool(gtChainId, topPoolsOfToken[0]?.[0], resolution);
 
 	const { isPhone } = useWindowSize();
 	return (
@@ -1247,11 +1252,12 @@ export function AggregatorContainer({ sandwichList }) {
 						<Box
 							style={{
 								overflow: 'hidden',
-								maxWidth: '100vw',
-								marginBottom: '1rem'
+								maxWidth: '100vw'
+								// marginBottom: '1rem'
 							}}
 						>
 							<PriceChart
+								loadingPools={loadingPools}
 								resolution={resolution}
 								setResolution={setResolution}
 								pool={filterPoolAllowCandleChart(topPoolsOfToken[0])?.[0]}
@@ -1480,7 +1486,7 @@ export function AggregatorContainer({ sandwichList }) {
 				</Routes>
 			</BodyWrapper>
 
-			{topPoolsOfToken?.length > 0 && topPoolsOfToken[0].length > 0 && isPhone ? (
+			{isPhone ? (
 				<Box
 					style={{
 						overflow: 'hidden',
@@ -1489,9 +1495,10 @@ export function AggregatorContainer({ sandwichList }) {
 					}}
 				>
 					<PriceChart
+						loadingPools={loadingPools}
 						resolution={resolution}
 						setResolution={setResolution}
-						pool={filterPoolAllowCandleChart(topPoolsOfToken[0])[0]}
+						pool={filterPoolAllowCandleChart(topPoolsOfToken[0])?.[0]}
 						ohlcvs={susscessOHLCVs}
 					/>
 				</Box>

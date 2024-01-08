@@ -96,7 +96,7 @@ export function PriceImpact({
 				<AccordionItem borderColor="#373944" minH="2.5rem">
 					{({ isExpanded }) => (
 						<>
-							<AccordionButton onClick={() => setPriceOrder((prev) => prev * -1)}>
+							<AccordionButton defaultChecked={true} onClick={() => setPriceOrder((prev) => prev * -1)}>
 								{priceOrder + shouldRevertPriceOrder === 1 ? (
 									<Box as="span" flex="1" textAlign="left" fontSize="0.875rem">{`1 ${
 										fromToken.symbol
@@ -113,6 +113,7 @@ export function PriceImpact({
 								{isExpanded ? <MinusIcon fontSize="12px" /> : <AddIcon fontSize="12px" />}
 							</AccordionButton>
 							<AccordionPanel
+								defaultChecked={true}
 								px={4}
 								py={[1, 1, 2, 2]}
 								mb={2}

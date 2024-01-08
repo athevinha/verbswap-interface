@@ -36,7 +36,7 @@ const SwapConfiramtion = ({
 						Swap
 					</Button>
 				</PopoverTrigger>
-				<PopoverContent>
+				<PopoverContent background={'#000111'} opacity={0.5}>
 					<PopoverArrow />
 					<PopoverCloseButton />
 					<PopoverHeader>Swap Confirmation.</PopoverHeader>

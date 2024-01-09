@@ -51,15 +51,17 @@ export function useTopPools() {
 				queryKey: ['topPools', toTokenAddress, gtChainId],
 				queryFn: () => getTopPools(toTokenAddress, gtChainId),
 				refetchInterval: 100000,
-				refetchOnWindowFocus: true,
-				refetchIntervalInBackground: false
+				refetchOnWindowFocus: false,
+				refetchIntervalInBackground: false,
+				enabled: !!toTokenAddress
 			},
 			{
 				queryKey: ['topPools', fromTokenAddress, gtChainId],
 				queryFn: () => getTopPools(fromTokenAddress, gtChainId),
 				refetchInterval: 100000,
-				refetchOnWindowFocus: true,
-				refetchIntervalInBackground: false
+				refetchOnWindowFocus: false,
+				refetchIntervalInBackground: false,
+				enabled: !!fromTokenAddress
 			}
 		]
 	});
@@ -92,8 +94,9 @@ export function useOHLCVpool(gtChain, pool: ITopPoolGK, resolution: string) {
 				queryFn: () =>
 					getOHLCVPool(pool?.id?.split('_')?.[1], gtChain, resolution.split('-')[1], resolution.split('-')[0]),
 				refetchInterval: 100000,
-				refetchOnWindowFocus: true,
-				enabled: pool !== null
+				// refetchIntervalInBackground: false,
+				refetchOnWindowFocus: true
+				// enabled: pool !== null
 			}
 		]
 	});

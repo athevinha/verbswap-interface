@@ -27,7 +27,12 @@ import {
 	Grid,
 	GridItem,
 	SimpleGrid,
-	Divider
+	Divider,
+	Menu,
+	MenuButton,
+	MenuList,
+	MenuItem,
+	MenuIcon
 } from '@chakra-ui/react';
 import ReactSelect from '~/components/MultiSelect';
 import FAQs from '~/components/FAQs';
@@ -61,7 +66,15 @@ import { useQueryParams } from '~/hooks/useQueryParams';
 import { useSelectedChainAndTokens } from '~/hooks/useSelectedChainAndTokens';
 import { InputAmountAndTokenSelect } from '../InputAmountAndTokenSelect';
 import { Sandwich } from './Sandwich';
-import { ArrowBackIcon, ArrowForwardIcon, SettingsIcon } from '@chakra-ui/icons';
+import {
+	ArrowBackIcon,
+	ArrowForwardIcon,
+	SettingsIcon,
+	ArrowUpDownIcon,
+	ChevronLeftIcon,
+	ChevronDownIcon,
+	InfoIcon
+} from '@chakra-ui/icons';
 import { Settings } from './Settings';
 import { formatAmount } from '~/utils/formatAmount';
 import { RefreshIcon } from '../RefreshIcon';
@@ -69,6 +82,10 @@ import { filterPoolAllowCandleChart, useOHLCVpool, useTopPools } from '~/hooks/u
 import PriceChart from './priceChart';
 import { useWindowSize } from '~/hooks/useWindowSize';
 import { useTokenList } from '~/hooks/useTokenList';
+import { DepositModal } from './DepositModal';
+import MasterCardIcon from '~/assets/buy-crypto/master-card';
+import VisaIcon from '~/assets/buy-crypto/visa';
+import { DownChevron } from 'react-select/dist/declarations/src/components/indicators';
 
 /*
 Integrated:
@@ -357,6 +374,7 @@ export function AggregatorContainer({ sandwichList }) {
 	const [disabledAdapters, setDisabledAdapters] = useLocalStorage('VerbSwap-disabledadapters', []);
 	const [isDegenModeEnabled, _] = useLocalStorage('VerbSwap-degenmode', false);
 	const [isSettingsModalOpen, setSettingsModalOpen] = useState(false);
+	const [isDepositModalOpen, setDepositModalOpen] = useState(false);
 
 	// mobile states
 	const [uiState, setUiState] = useState(STATES.INPUT);
@@ -986,7 +1004,7 @@ export function AggregatorContainer({ sandwichList }) {
 					onClose={() => setSettingsModalOpen(false)}
 				/>
 			) : null}
-
+			{isDepositModalOpen ? <DepositModal onClose={() => setDepositModalOpen(false)} /> : null}
 			<BodyWrapper>
 				<Body>
 					<div>
@@ -994,19 +1012,69 @@ export function AggregatorContainer({ sandwichList }) {
 							<Flex>
 								<Box>Chain</Box>
 								<Spacer />
-								<Tooltip content="Redirect requests through the VerbSwap server to hide your IP address">
-									<FormControl display="flex" alignItems="baseline" gap="6px" justifyContent={'center'}>
-										<FormLabel htmlFor="privacy-switch" margin={0} fontSize="14px" color="gray.400">
-											Hide IP
-										</FormLabel>
-										<Switch
-											id="privacy-switch"
-											onChange={(e) => setIsPrivacyEnabled(e?.target?.checked)}
-											isChecked={isPrivacyEnabled}
-										/>
-									</FormControl>
-								</Tooltip>
-								<SettingsIcon onClick={() => setSettingsModalOpen((open) => !open)} ml={4} mt={1} cursor="pointer" />
+								{/* <Box mr={2} cursor={'pointer'} display={'flex'} onClick={() => setDepositModalOpen((open) => !open)}>
+									<FormLabel fontSize="14px" color="gray.400">
+										Buy Crypto
+									</FormLabel>{' '}
+								</Box> */}
+								<Box
+									mr={1}
+									cursor={'pointer'}
+									display={'flex'}
+									verticalAlign={'middle'}
+									onClick={() => setDepositModalOpen((open) => !open)}
+								>
+									<Text fontWeight={300} fontSize={14} mr={2} mt={1}>
+										Buy Crypto
+									</Text>
+									<MasterCardIcon width={30} height={'auto'} />
+									<VisaIcon width={30} height={'auto'} />
+								</Box>
+								<div
+									style={{
+										background: 'gray',
+										width: '0.5px',
+										marginLeft: '0.7rem',
+										marginRight: '0.7rem',
+										height: 'auto'
+									}}
+								></div>
+								<Menu background="black">
+									<MenuButton as={Text} rightIcon={<ChevronDownIcon />}>
+										<SettingsIcon />
+									</MenuButton>
+
+									<MenuList background="black" border={'1px solid gray'}>
+										<MenuItem minH="48px">
+											<MasterCardIcon width={30} height={'auto'} />
+											<VisaIcon width={30} height={'auto'} />
+											<Text fontWeight={300} fontSize={14} ml={2}>
+												Buy Crypto
+											</Text>
+										</MenuItem>
+										<MenuItem minH="40px">
+											<Tooltip content="Redirect requests through the VerbSwap server to hide your IP address">
+												<FormControl display="flex" alignItems="baseline" gap="6px" justifyContent={'center'}>
+													<Switch
+														id="privacy-switch"
+														colorScheme="black"
+														onChange={(e) => setIsPrivacyEnabled(e?.target?.checked)}
+														isChecked={isPrivacyEnabled}
+													/>{' '}
+													<FormLabel htmlFor="privacy-switch" margin={0} fontSize="14px" color="gray.400">
+														Hide IP
+													</FormLabel>
+												</FormControl>
+											</Tooltip>
+										</MenuItem>
+										<MenuItem minH="40px" onClick={() => setSettingsModalOpen((open) => !open)}>
+											<InfoIcon mr={1} cursor="pointer" />
+											<Text fontWeight={300} fontSize={14} mr={2}>
+												More
+											</Text>
+										</MenuItem>
+									</MenuList>
+								</Menu>
 								{isSmallScreen && finalSelectedFromToken && finalSelectedToToken ? (
 									<ArrowForwardIcon
 										width={'24px'}
@@ -1485,7 +1553,6 @@ export function AggregatorContainer({ sandwichList }) {
 						: null}
 				</Routes>
 			</BodyWrapper>
-
 			{isPhone ? (
 				<Box
 					style={{
@@ -1506,7 +1573,6 @@ export function AggregatorContainer({ sandwichList }) {
 				''
 			)}
 			{/* {window === parent ? <FAQs /> : null} */}
-
 			<TransactionModal open={txModalOpen} setOpen={setTxModalOpen} link={txUrl} />
 		</Wrapper>
 	);

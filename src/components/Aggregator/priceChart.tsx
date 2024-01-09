@@ -31,31 +31,31 @@ const PriceChart = ({ loadingPools, pool, ohlcvs, resolution, setResolution }: I
 	console.log('#lo', loadingPools);
 	return (
 		<Box>
-			{ohlcvs.length > 0 ? (
-				<Fragment>
-					<Header>
-						<Text color={'gray.300'} fontSize={16}>
-							{pool?.attributes?.name || 'Line Chart'}{' '}
-							{pool && <span style={{ color: 'gray' }}>(${formatNumber(pool.attributes.base_token_price_usd)})</span>}
-						</Text>
-						<Box>
-							{Object.keys(CHART_OPTION).map((key, _) => {
-								return (
-									<Button
-										key={_}
-										color={key === resolution ? 'white' : 'gray'}
-										colorScheme="blackAlpha"
-										fontSize={15}
-										onClick={() => {
-											setResolution(key);
-										}}
-									>
-										{CHART_OPTION[key]}
-									</Button>
-								);
-							})}
-						</Box>
-					</Header>
+			<Fragment>
+				<Header>
+					<Text color={'gray.300'} fontSize={16}>
+						{pool?.attributes?.name || ''}{' '}
+						{pool && <span style={{ color: 'gray' }}>(${formatNumber(pool.attributes.base_token_price_usd)})</span>}
+					</Text>
+					<Box>
+						{Object.keys(CHART_OPTION).map((key, _) => {
+							return (
+								<Button
+									key={_}
+									color={key === resolution ? 'white' : 'gray'}
+									colorScheme="blackAlpha"
+									fontSize={15}
+									onClick={() => {
+										setResolution(key);
+									}}
+								>
+									{CHART_OPTION[key]}
+								</Button>
+							);
+						})}
+					</Box>
+				</Header>
+				{ohlcvs.length > 0 ? (
 					<ResponsiveContainer width="100%" height={CHART_HEIGHT} style={{ background: 'black' }}>
 						<ComposedChart
 							data={ohlcvs}
@@ -109,12 +109,12 @@ const PriceChart = ({ loadingPools, pool, ohlcvs, resolution, setResolution }: I
 							)}
 						</ComposedChart>
 					</ResponsiveContainer>
-				</Fragment>
-			) : loadingPools.length > 0 ? (
-				<LoadingChart />
-			) : (
-				<div></div>
-			)}
+				) : loadingPools.length > 0 ? (
+					<LoadingChart />
+				) : (
+					<div></div>
+				)}
+			</Fragment>
 		</Box>
 	);
 };

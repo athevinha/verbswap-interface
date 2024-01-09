@@ -86,13 +86,13 @@ const Header = ({ children }) => {
 						>
 							Swap
 						</HeaderOption>
-						<HeaderOption
+						{/* <HeaderOption
 							onClick={() => {
 								router.push('/deposit');
 							}}
 						>
 							Deposit
-						</HeaderOption>
+						</HeaderOption> */}
 						<HeaderOption
 							onClick={() => {
 								router.push('/tokens');

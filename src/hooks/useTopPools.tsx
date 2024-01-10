@@ -19,7 +19,7 @@ export async function getOHLCVPool(
 	aggregate: string = '1'
 ) {
 	if (!poolAddress || !gtChain || poolAddress === '0x0000000000000000000000000000000000000000') return [];
-	const url = `https://api.geckoterminal.com/api/v2/networks/${gtChain}/pools/${poolAddress.toLowerCase()}/ohlcv/${resolution}?aggregate=${aggregate}&before_timestamp=${Date.now()}&limit=100`;
+	const url = `https://api.geckoterminal.com/api/v2/networks/${gtChain}/pools/${poolAddress.toLowerCase()}/ohlcv/${resolution}?aggregate=${aggregate}&limit=100`;
 	const res = await fetch(url).then((r) => r.json());
 	return res.data?.attributes?.ohlcv_list || [];
 }

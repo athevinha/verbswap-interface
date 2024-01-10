@@ -167,7 +167,10 @@ export async function getTokenList() {
 	tokensFiltered = await markMultichain(tokensFiltered);
 
 	// get top tokens on each chain
-	const topTokensByChain = await Promise.all(Object.keys(tokensFiltered).map((chain) => getTopTokensByChain(chain)));
+	const topTokensByChain =
+		//  await Promise.all(
+		Object.keys(tokensFiltered).map((chain) => [chain, []]);
+	// );
 
 	const topTokensByVolume = Object.fromEntries(
 		topTokensByChain.filter((chain) => chain !== null && tokensFiltered[chain[0]])

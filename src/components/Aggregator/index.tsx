@@ -1045,25 +1045,28 @@ export function AggregatorContainer({ sandwichList }) {
 									</MenuButton>
 
 									<MenuList background="black" border={'1px solid gray'}>
-										<MenuItem minH="48px">
+										{/* <MenuItem minH="48px">
 											<MasterCardIcon width={30} height={'auto'} />
 											<VisaIcon width={30} height={'auto'} />
 											<Text fontWeight={300} fontSize={14} ml={2}>
 												Buy Crypto
 											</Text>
-										</MenuItem>
+										</MenuItem> */}
 										<MenuItem minH="40px">
 											<Tooltip content="Redirect requests through the VerbSwap server to hide your IP address">
 												<FormControl display="flex" alignItems="baseline" gap="6px" justifyContent={'center'}>
 													<Switch
 														id="privacy-switch"
-														colorScheme="black"
+														colorScheme="gray.400"
 														onChange={(e) => setIsPrivacyEnabled(e?.target?.checked)}
 														isChecked={isPrivacyEnabled}
 													/>{' '}
-													<FormLabel htmlFor="privacy-switch" margin={0} fontSize="14px" color="gray.400">
+													<FormLabel fontWeight={300} htmlFor="privacy-switch" fontSize={14} mr={2} mt={1}>
 														Hide IP
 													</FormLabel>
+													{/* <FormLabel htmlFor="privacy-switch" margin={0} fontSize="14px" color="gray.400">
+														Hide IP
+													</FormLabel> */}
 												</FormControl>
 											</Tooltip>
 										</MenuItem>

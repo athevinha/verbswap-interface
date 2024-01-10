@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import { chainsMap } from '~/components/Aggregator/constants';
 import { getAllChains } from '~/components/Aggregator/router';
+import { useGetSavedTokens } from '~/queries/useGetSavedTokens';
 import { IToken } from '~/types';
 import { useQueryParams } from './useQueryParams';
 
@@ -8,7 +9,7 @@ const chains = getAllChains();
 
 export function useSelectedChainAndTokens({ tokens }) {
 	const { chainName, fromTokenAddress, toTokenAddress } = useQueryParams();
-
+	// const savedTokens = useGetSavedTokens(selectedChain?.id);
 	return useMemo(() => {
 		const chainId = chainsMap[chainName];
 
@@ -16,7 +17,7 @@ export function useSelectedChainAndTokens({ tokens }) {
 
 		const selectedChain = chains.find((c) => c.value === chainName);
 
-		const selectedFromToken = tokenList?.find((t) => t.address.toLowerCase() === fromTokenAddress) || tokenList?.[0];
+		const selectedFromToken = tokenList?.find((t) => t.address.toLowerCase() === fromTokenAddress);
 
 		const selectedToToken = tokenList?.find((t) => t.address.toLowerCase() === toTokenAddress);
 

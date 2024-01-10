@@ -142,6 +142,7 @@ export function useGetRoutes({
 				};
 			})
 	});
+	console.log('#router', res);
 	const data = res?.filter((r) => r.status === 'success') ?? [];
 	const resData = res?.filter((r) => r.status === 'success' && !!r.data && r.data.price) ?? [];
 	const loadingRoutes =

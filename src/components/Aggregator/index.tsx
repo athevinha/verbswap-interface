@@ -675,17 +675,14 @@ export function AggregatorContainer({ sandwichList }) {
 		});
 	};
 
-	useEffect(() => {
-		const isUnknown =
-			selectedToToken === null &&
-			finalSelectedToToken !== null &&
-			savedTokens &&
-			!savedTokens.find(({ address }) => address.toLowerCase() === toTokenAddress.toLowerCase());
-
-		if (isUnknown && toTokenAddress && savedTokens?.length > 1) {
-			onToTokenChange(undefined);
-		}
-	}, [router?.query, savedTokens]);
+	// useEffect(() => {
+	// const isUnknown =
+	// 	selectedToToken === null &&
+	// 	finalSelectedToToken !== null &&
+	// 	savedTokens &&
+	// 	!savedTokens.find(({ address }) => address.toLowerCase() === toTokenAddress.toLowerCase())
+	// 	console.log('#tokensQuery', fromTokenAddress, toTokenAddress);
+	// }, [router?.query, savedTokens]);
 
 	useEffect(() => {
 		if (selectedRoute) {
@@ -985,7 +982,7 @@ export function AggregatorContainer({ sandwichList }) {
 	].filter(Boolean);
 
 	const { topPoolsOfToken, gtChainId } = useTopPools();
-	const [resolution, setResolution] = useState<string>('1-day');
+	const [resolution, setResolution] = useState<string>('1-hour');
 	const {
 		susscessOHLCVs,
 		isLoading: isOHLCVLoading,

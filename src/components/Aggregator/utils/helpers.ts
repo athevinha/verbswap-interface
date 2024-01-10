@@ -1,4 +1,5 @@
 import { BigNumber } from 'ethers';
+import { zerofy } from '~/utils';
 
 export const CHART_HEIGHT = 400;
 export const YAXIS_WIDTH = 15;
@@ -195,7 +196,7 @@ export const yaxisFormatterNumber = (value) => {
 };
 
 export const yaxisFormatter = (value) => {
-	return formatNumber(value, { currency: true, compact: true });
+	return zerofy(value).slice(0, -2);
 };
 
 export const tooltipFormatterNumber = (value) => {
@@ -210,7 +211,7 @@ export const tooltipFormatter = (value, name, item) => {
 	if (item && item.unit === '%') {
 		return value.toFixed(2);
 	}
-	return formatNumber(value, { currency: true });
+	return zerofy(value);
 };
 
 export const convertToPercents = (data, { ignoreKeys = [], totalKey = 'all' } = {}) => {

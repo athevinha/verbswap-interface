@@ -1,13 +1,13 @@
 import { useMemo } from 'react';
 import { chainNameToId, chainsMap, geckoTerminalChainsMap } from '~/components/Aggregator/constants';
 import { getAllChains } from '~/components/Aggregator/router';
-import { IOHLCV, IToken, ITopPoolGK } from '~/types';
+import { IOHLCV, IToken, IGKQuery } from '~/types';
 import { useQueryParams } from './useQueryParams';
 import { useQueries } from '@tanstack/react-query';
 import { candleDexValid } from '~/components/Aggregator/list';
 const chains = getAllChains();
 export async function getTopPools(tokenAddress: string, gtChain: string) {
-	const res: { data: ITopPoolGK[] } = await fetch(
+	const res: { data: IGKQuery[] } = await fetch(
 		`https://api.geckoterminal.com/api/v2/networks/${gtChain}/tokens/${tokenAddress}/pools?page=1'`
 	).then((r) => r.json());
 	return res.data;
@@ -36,7 +36,7 @@ export function validDexCheck(dexID: string) {
 	});
 	return isValid;
 }
-export function filterPoolAllowCandleChart(pools: ITopPoolGK[]) {
+export function filterPoolAllowCandleChart(pools: IGKQuery[]) {
 	const poolsValid = pools?.filter((pool) => validDexCheck(pool.relationships.dex.data.id)) || [];
 	return poolsValid.length > 0 ? poolsValid : pools;
 }
@@ -79,7 +79,7 @@ export function useTopPools() {
 		loadingPools
 	};
 }
-export function useOHLCVpool(gtChain, pool: ITopPoolGK, resolution: string) {
+export function useOHLCVpool(gtChain, pool: IGKQuery, resolution: string) {
 	console.log(pool);
 	const res = useQueries({
 		queries: [

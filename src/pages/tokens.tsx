@@ -1,6 +1,6 @@
-import { AggregatorContainer } from '~/components/Aggregator';
 import ConnectButton from '~/components/Aggregator/ConnectButton';
 import Header from '~/components/Aggregator/Header';
+import TokensContainer from '~/components/Tokens';
 import Layout from '~/layout';
 // export async function getStaticProps() {
 // 	const tokenList = await getTokenList();
@@ -15,21 +15,21 @@ import Layout from '~/layout';
 // 		}
 // 	};
 // }
-export async function getStaticProps() {
-	return {
-		props: {
-			tokenList: {},
-			sandwichList: []
-		}
-	};
-}
-export default function Tokens(props) {
+// export async function getStaticProps() {
+// 	return {
+// 		props: {
+// 			tokenList: {},
+// 			sandwichList: []
+// 		}
+// 	};
+// }
+export default function Tokens() {
 	return (
 		<Layout title={`DEX tokens - VerbSwap`} defaultSEO>
 			<Header>
 				<ConnectButton />
 			</Header>
-			Tokens
+			<TokensContainer />
 		</Layout>
 	);
 }

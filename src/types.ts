@@ -14,7 +14,7 @@ export interface IToken {
 	isGeckoToken?: boolean;
 }
   
-export interface ITopPoolGK {
+export interface IGKQuery {
 	id: string;
 	type: string;
 	attributes: Attributes;
@@ -28,6 +28,14 @@ export interface Attributes {
 	quote_token_price_native_currency: string;
 	base_token_price_quote_token: string;
 	quote_token_price_base_token: string;
+	price_change_percentage: {
+		h1: string;
+		h24: string;
+	};
+	transactions: {
+		h1: { buys: number; sells: number; buyers: number; sellers: number };
+		h24: { buys: number; sells: number; buyers: number; sellers: number };
+	};
 	address: string;
 	name: string;
 	pool_created_at: any;

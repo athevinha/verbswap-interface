@@ -25,7 +25,7 @@ export function useQueryParams() {
 			if (isConnected && chainOnWallet && chain && !chainOnWallet.unsupported) {
 				router.push(
 					{
-						pathname: '/',
+						// pathname: '/',
 						query: { chain: chain.value, from: ethers.constants.AddressZero }
 					},
 					undefined,
@@ -35,7 +35,7 @@ export function useQueryParams() {
 				// redirects to ethereum, when there is no chain query param in URl or if chain on wallet is not supported
 				router.push(
 					{
-						pathname: '/',
+						// pathname: '/',
 						query: { chain: 'ethereum', from: ethers.constants.AddressZero }
 					},
 					undefined,

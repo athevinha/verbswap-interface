@@ -1,7 +1,7 @@
 import { Box, Button, Text } from '@chakra-ui/react';
 import { Area, ComposedChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import styled from 'styled-components';
-import { IOHLCV, ITopPoolGK } from '~/types';
+import { IOHLCV, IGKQuery } from '~/types';
 import {
 	CHART_HEIGHT,
 	CHART_OPTION,
@@ -17,7 +17,7 @@ import { Fragment } from 'react';
 interface I {
 	loadingPools: any[];
 	ohlcvs: IOHLCV[];
-	pool: ITopPoolGK;
+	pool: IGKQuery;
 	resolution: string;
 	setResolution: (a: string) => void;
 }

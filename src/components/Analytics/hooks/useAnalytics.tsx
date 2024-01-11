@@ -1,20 +1,20 @@
 import { useQueries } from '@tanstack/react-query';
 import { IGKQuery } from '~/types';
 import { ILMQuery } from '../type';
-export const getDexsAnalytics = async () => {
+export const getDexsAnalytics = async (excludeTotalDataChartBreakdown = true, excludeTotalDataChart = true) => {
 	let prevRes: ILMQuery = await fetch(
-		`https://api.llama.fi/overview/dexs?excludeTotalDataChartBreakdown=true&excludeTotalDataChart=true`
+		`https://api.llama.fi/overview/dexs?excludeTotalDataChartBreakdown=${excludeTotalDataChartBreakdown}&excludeTotalDataChart=${excludeTotalDataChart}`
 	).then((res) => res.json());
 	console.log('#quey', prevRes);
 	return prevRes;
 };
 
-export const useAnalytics = () => {
+export const useAnalytics = (excludeTotalDataChartBreakdown = true, excludeTotalDataChart = true) => {
 	const res = useQueries({
 		queries: [
 			{
-				queryKey: ['getDexsAnalytics', '___'],
-				queryFn: () => getDexsAnalytics(),
+				queryKey: ['getDexsAnalytics', '___', excludeTotalDataChartBreakdown, excludeTotalDataChart],
+				queryFn: () => getDexsAnalytics(excludeTotalDataChartBreakdown, excludeTotalDataChart),
 				refetchInterval: 100000,
 				refetchOnWindowFocus: false,
 				refetchIntervalInBackground: false

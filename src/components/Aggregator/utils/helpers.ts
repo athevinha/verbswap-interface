@@ -9,8 +9,8 @@ export const CHART_OPTION = {
 	'1-hour': '1H',
 	'4-hour': '4H'
 };
-export const GREEN = '#059669';
-export const RED = '#c53030';
+export const GREEN = '#48BB78';
+export const RED = '#F56565';
 export const COLORS = [
 	'#ee64b8',
 	GREEN,
@@ -185,6 +185,18 @@ export const tooltipLabelFormatter = (label, args) => {
 	const formattedTime = `${date.getHours()}.${date.getMinutes()}`; // Get the time in "hour.minute" format
 
 	return `${formattedDate} `;
+};
+export const tooltipLabelFormatterYear = (label, args) => {
+	if (!label) {
+		return;
+	}
+
+	const date = new Date(label * 1000); // Convert seconds to milliseconds
+	const formattedDate =
+		date.toISOString().split('T')[0].split('-')[1] + '/' + date.toISOString().split('T')[0].split('-')[2]; // Get the date in "YYYY-MM-DD" format
+	const formattedTime = `${date.getHours()}.${date.getMinutes()}`; // Get the time in "hour.minute" format
+
+	return `${date.toISOString().split('T')[0]} `;
 };
 
 export const yaxisFormatterPercent = (value) => {

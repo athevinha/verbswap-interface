@@ -62,12 +62,21 @@ const TextPercentChange = (value: number) => {
 		</Text>
 	);
 };
-export default function DexsTable({ dexs, title }: { dexs: ILMQuery; title?: string }) {
+export default function DexsTable({
+	dexs,
+	title,
+	sortBy = 'dailyVolume',
+	limit
+}: // 'change_1d']
+{
+	dexs: ILMQuery;
+	title?: string;
+	sortBy?: string;
+	limit?: number;
+}) {
 	const dexsProtocolFilter = useMemo(() => {
-		return (dexs?.protocols || [])
-			?.filter((d) => !!d.dailyVolume)
-			.sort((a, b) => b.dailyVolume - a.dailyVolume && b.change_1d - a.change_1d);
-	}, [dexs]);
+		return (dexs?.protocols || [])?.filter((d) => !!d.dailyVolume).sort((a, b) => b[sortBy] - a[sortBy]);
+	}, [dexs?.protocols, sortBy]);
 	return (
 		<Wrapped>
 			{title ? (
@@ -87,17 +96,18 @@ export default function DexsTable({ dexs, title }: { dexs: ILMQuery; title?: str
 						<Tr>
 							<Th>Name</Th>
 							<Th>Chain</Th>
-							<Th>Type</Th>
+
 							<Th>Volume (24H)</Th>
 							<Th>Change (24H)</Th>
 							<Th>Volume (1M)</Th>
 							<Th>Change (1M)</Th>
+							<Th>Type</Th>
 							<Th>Cumulative</Th>
 						</Tr>
 					</Thead>
 					<Tbody>
 						{dexsProtocolFilter.length > 0 ? (
-							dexsProtocolFilter.map((d, _) => {
+							(limit ? dexsProtocolFilter.slice(0, limit) : dexsProtocolFilter).map((d, _) => {
 								if (d.disabled) return;
 								return (
 									<Tr key={_}>
@@ -137,9 +147,7 @@ export default function DexsTable({ dexs, title }: { dexs: ILMQuery; title?: str
 												</Tooltip>
 											</Flex>
 										</Td>
-										<Td>
-											<Text>{d.category}</Text>
-										</Td>
+
 										<Td>
 											<Text>
 												{d.dailyVolume && '$'}
@@ -158,6 +166,9 @@ export default function DexsTable({ dexs, title }: { dexs: ILMQuery; title?: str
 											</Text>
 										</Td>
 										<Td>{TextPercentChange(d.change_1m)}</Td>
+										<Td>
+											<Text>{d.category}</Text>
+										</Td>
 										<Td>
 											<Text>
 												{d.totalAllTime && '$'}

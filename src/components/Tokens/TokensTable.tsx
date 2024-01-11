@@ -43,6 +43,17 @@ const Wrapped = styled.div`
 	overflow-x: auto;
 	overflow-y: hidden;
 `;
+const TextPercentChange = (value: number) => {
+	return Number(value) < 0 ? (
+		<Text color={RED}>
+			{value}% <TriangleDownIcon />
+		</Text>
+	) : (
+		<Text color={GREEN}>
+			{value}% <TriangleUpIcon />
+		</Text>
+	);
+};
 export default function TokensTable({ topTokens, title }: { topTokens: IGKQuery[]; title?: string }) {
 	const { chainName } = useQueryParams();
 	const [timeOption, setTimeOption] = useState<{ key: string; value: string }>({
@@ -164,17 +175,7 @@ export default function TokensTable({ topTokens, title }: { topTokens: IGKQuery[
 												? zerofy(t.attributes.volume_usd[timeOption.key])
 												: formatNumberToKMB(t.attributes.volume_usd[timeOption.key])}
 										</Td>
-										<Td>
-											{Number(t.attributes.price_change_percentage[timeOption.key]) < 0 ? (
-												<Text color={RED}>
-													{t.attributes.price_change_percentage[timeOption.key]}% <TriangleDownIcon />
-												</Text>
-											) : (
-												<Text color={GREEN}>
-													{t.attributes.price_change_percentage[timeOption.key]}% <TriangleUpIcon />
-												</Text>
-											)}
-										</Td>
+										<Td>{TextPercentChange(t.attributes.price_change_percentage[timeOption.key])}</Td>
 										<Td color={'gray.300'}>
 											{t.attributes.fdv_usd && '$'}
 											{formatNumberToKMB(Number(Number(t.attributes.fdv_usd).toFixed(2)) || '')}
@@ -196,16 +197,18 @@ export default function TokensTable({ topTokens, title }: { topTokens: IGKQuery[
 							})
 						) : (
 							<Fragment>
-								{Array(10)
-									.fill(0)
-									.map((a, _) => {
-										<Skeleton h={5} key={_} />;
+								<Tr>
+									{[1, 2, 3, 4, 5, 6, 7, 8, 9].map((a, _) => {
+										return (
+											<Td key={_}>
+												<Skeleton h={5} key={_} />
+											</Td>
+										);
 									})}
+								</Tr>
 							</Fragment>
 						)}
-						{[1, 2, 3, 4, 5, 6, 7, 8, 9].map((a, _) => {
-							<Skeleton h={5} key={_} />;
-						})}
+
 						{/* <Tr>
 						<Td>{p}</Td>
 						<Td>millimetres (mm)</Td>

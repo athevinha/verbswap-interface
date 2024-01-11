@@ -95,10 +95,10 @@ const Header = ({ children }) => {
 						</HeaderOption> */}
 						<HeaderOption
 							onClick={() => {
-								router.push('/tokens');
+								router.push('/pools');
 							}}
 						>
-							Tokens
+							Pools
 						</HeaderOption>
 						<HeaderOption
 							onClick={() => {

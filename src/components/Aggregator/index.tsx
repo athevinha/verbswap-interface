@@ -1036,7 +1036,7 @@ export function AggregatorContainer({ sandwichList }) {
 										height: 'auto'
 									}}
 								></div>
-								<Menu background="black">
+								<Menu>
 									<MenuButton as={Text} rightIcon={<ChevronDownIcon />}>
 										<SettingsIcon />
 									</MenuButton>

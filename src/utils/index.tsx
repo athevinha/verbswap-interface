@@ -148,6 +148,7 @@ export const IS_NEG = (num: string | number | BigNumber): boolean => {
 	}
 };
 export function formatNumberToKMB(num: number | string): string {
+	num = Number(num);
 	if (num >= 1000000000) {
 		return (num / 1000000000).toFixed(1).replace(/\.0$/, '') + 'b';
 	}

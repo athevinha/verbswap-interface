@@ -23,9 +23,9 @@ import Layout from '~/layout';
 // 		}
 // 	};
 // }
-export default function Tokens() {
+export default function Pools() {
 	return (
-		<Layout title={`DEX tokens - VerbSwap`} defaultSEO>
+		<Layout title={`Pools - VerbSwap`} defaultSEO>
 			<Header>
 				<ConnectButton />
 			</Header>

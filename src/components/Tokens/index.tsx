@@ -37,7 +37,7 @@ const WrappedRight = styled.div`
 		width: 100%;
 	}
 `;
-export default function TokensContainer() {
+export default function PoolsContainer() {
 	const { chainName } = useQueryParams();
 	const { tokens: topTokens } = useAnalyticsTokens(chainNameToId(chainName), GK_POOL_QUERY.TOP_POOLS);
 	const { tokens: trendingTokens } = useAnalyticsTokens(chainNameToId(chainName), GK_POOL_QUERY.TRENDING_POOLS);

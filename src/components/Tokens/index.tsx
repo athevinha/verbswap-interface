@@ -25,14 +25,14 @@ const WrappedFlex = styled.div`
 const Header = styled.div`
 	width: 100%;
 `;
-const WrappedLeft = styled.div`
-	width: 50%;
+const WrappedLeft = styled.div<{ width?: string }>`
+	width: ${(props) => props.width || '80%'};
 	@media screen and (max-width: ${({ theme }) => theme.bpMed}) {
 		width: 100%;
 	}
 `;
-const WrappedRight = styled.div`
-	width: 50%;
+const WrappedRight = styled.div<{ width?: string }>`
+	width: ${(props) => props.width || '20%'};
 	@media screen and (max-width: ${({ theme }) => theme.bpMed}) {
 		width: 100%;
 	}
@@ -57,12 +57,12 @@ export default function PoolsContainer() {
 	return (
 		<Wrapped>
 			<ReactSelect options={chains} value={selectedChain} onChange={onChainChange} />
+			<TokensTable title={'Trending pools 🔥'} topTokens={trendingTokens} />
 			<WrappedFlex>
-				<WrappedLeft>
+				<WrappedLeft width="50%">
 					<TokensTable title={'New pools 🎉'} topTokens={newTokens} />
 				</WrappedLeft>
-				<WrappedRight>
-					<TokensTable title={'Trending pools 🔥'} topTokens={trendingTokens} />
+				<WrappedRight width="50%">
 					<TokensTable title={'Top pools 📈'} topTokens={topTokens} />
 				</WrappedRight>
 			</WrappedFlex>

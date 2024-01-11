@@ -1,6 +1,18 @@
 import { Box } from '@chakra-ui/react';
 import { Fragment, useMemo } from 'react';
-import { Area, Bar, BarChart, ComposedChart, Line, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+import {
+	Area,
+	Bar,
+	BarChart,
+	CartesianAxis,
+	CartesianGrid,
+	ComposedChart,
+	Line,
+	ResponsiveContainer,
+	Tooltip,
+	XAxis,
+	YAxis
+} from 'recharts';
 import styled from 'styled-components';
 import { formatNumberToKMB } from '~/utils';
 import { LoadingChart } from '../Aggregator/loadingChart';
@@ -77,7 +89,6 @@ const DexChart = ({ dexs, title }: I) => {
 								top: 50
 							}}
 						>
-							{/* <CartesianGrid color="grey" strokeDasharray="2 5" /> */}
 							<XAxis axisLine={false} dataKey="ts" tickFormatter={tooltipLabelFormatterYear} minTickGap={30} />
 							<YAxis
 								domain={[(dataMin) => dataMin, (dataMax) => dataMax]}
@@ -98,7 +109,7 @@ const DexChart = ({ dexs, title }: I) => {
 
 							<Tooltip
 								formatter={(value) => {
-									return '$' + formatNumberToKMB(value);
+									return '$' + formatNumberToKMB(String(value));
 								}}
 								labelFormatter={tooltipLabelFormatterYear}
 								contentStyle={{
@@ -116,7 +127,7 @@ const DexChart = ({ dexs, title }: I) => {
 									dot={false}
 									fill={'url(#upppp)'}
 									strokeWidth={2}
-									stroke={GREEN}
+									stroke={'#9F7AEA'}
 									dataKey="c"
 									yAxisId="right"
 									name="Dexs volume"

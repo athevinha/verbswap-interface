@@ -47,28 +47,28 @@ export default function DexsOverview({ dexs, title }: { dexs: ILMQuery; title?: 
 				</Header>
 			) : dexs?.total24h ? (
 				<Box w={'100%'}>
-					<Box border={'1px solid gray'} borderRadius={'10px'} padding={2}>
+					<Box border={'1px solid gray'} borderRadius={'10px'} padding={2} mt={1}>
 						<Text fontSize={18}>Total volume (24h)</Text>
 						<Text color="blue.400" fontSize={36} fontWeight={800}>
 							{dexs?.total24h && '$'}
 							{formatNumberToKMB(dexs?.total24h)}
 						</Text>
 					</Box>
-					<Box border={'1px solid gray'} borderRadius={'10px'} padding={2}>
-						<Text fontSize={18}>Total volume (24h)</Text>
+					<Box border={'1px solid gray'} borderRadius={'10px'} padding={2} mt={1}>
+						<Text fontSize={18}>Total volume (7d)</Text>
 						<Text color="green.400" fontSize={36} fontWeight={800}>
 							{dexs?.total7d && '$'}
 							{formatNumberToKMB(dexs?.total7d)}
 						</Text>
 					</Box>
-					<Box border={'1px solid gray'} borderRadius={'10px'} padding={2}>
-						<Text fontSize={18}>Total volume (24h)</Text>
+					<Box border={'1px solid gray'} borderRadius={'10px'} padding={2} mt={1}>
+						<Text fontSize={18}>Weekly change</Text>
 						<Text color="purple.400" fontSize={36} fontWeight={800}>
 							{dexs?.change_7dover7d}%
 						</Text>
 					</Box>
-					<Box border={'1px solid gray'} borderRadius={'10px'} padding={2}>
-						<Text fontSize={18}>Total volume (24h)</Text>
+					<Box border={'1px solid gray'} borderRadius={'10px'} padding={2} mt={1}>
+						<Text fontSize={18}>Monthly change</Text>
 						<Text color="orange.400" fontSize={36} fontWeight={800}>
 							{dexs?.change_30dover30d}%
 						</Text>

@@ -56,6 +56,5 @@ const TextPercentChange = (value: number) => {
 };
 export default function TokensTable({ options, value, onChange }: { value: IGKQuery[]; title?: string }) {
 	const { chainName } = useQueryParams();
-
 	return <Wrapped></Wrapped>;
 }

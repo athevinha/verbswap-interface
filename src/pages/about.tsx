@@ -1,3 +1,4 @@
+import AboutContainer from '~/components/About';
 import { AggregatorContainer } from '~/components/Aggregator';
 import ConnectButton from '~/components/Aggregator/ConnectButton';
 import Header from '~/components/Aggregator/Header';
@@ -29,7 +30,7 @@ export default function About(props) {
 			<Header>
 				<ConnectButton />
 			</Header>
-			About{' '}
+			<AboutContainer />
 		</Layout>
 	);
 }

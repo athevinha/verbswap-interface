@@ -9,6 +9,9 @@ const Wrapped = styled.div`
 	width: 100%;
 	overflow-x: hidden;
 	overflow-y: auto;
+	margin: 10px auto 40px;
+	position: relative;
+	top: 36px;
 `;
 const WrappedFlex = styled.div`
 	width: 100%;

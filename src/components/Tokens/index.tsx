@@ -12,6 +12,9 @@ const chains = getAllChains();
 const Wrapped = styled.div`
 	width: 100%;
 	overflow: hidden;
+	margin: 10px auto 40px;
+	position: relative;
+	top: 36px;
 `;
 const WrappedFlex = styled.div`
 	width: 100%;

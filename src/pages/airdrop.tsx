@@ -1,6 +1,8 @@
+import AboutContainer from '~/components/About';
+import { AggregatorContainer } from '~/components/Aggregator';
 import ConnectButton from '~/components/Aggregator/ConnectButton';
 import Header from '~/components/Aggregator/Header';
-import AnalyticsContainer from '~/components/Analytics';
+import AirdropContainer from '~/components/Airdrop';
 import Layout from '~/layout';
 // export async function getStaticProps() {
 // 	const tokenList = await getTokenList();
@@ -15,21 +17,21 @@ import Layout from '~/layout';
 // 		}
 // 	};
 // }
-// export async function getStaticProps() {
-// 	return {
-// 		props: {
-// 			tokenList: {},
-// 			sandwichList: []
-// 		}
-// 	};
-// }
-export default function Analytics() {
+export async function getStaticProps() {
+	return {
+		props: {
+			tokenList: {},
+			sandwichList: []
+		}
+	};
+}
+export default function Airdrop(props) {
 	return (
-		<Layout title={`Analytics - VerbSwap`} defaultSEO>
+		<Layout title={`Airdrop - VerbSwap`} defaultSEO>
 			<Header>
 				<ConnectButton />
 			</Header>
-			<AnalyticsContainer />
+			<AirdropContainer />
 		</Layout>
 	);
 }

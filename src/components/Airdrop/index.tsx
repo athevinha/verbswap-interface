@@ -30,7 +30,7 @@ const WrappedRight = styled.div<{ width?: string }>`
 		width: 100%;
 	}
 `;
-export default function AboutContainer() {
+export default function AirdropContainer() {
 	// const { dexs: dexsWidthChart } = useAnalytics(true, false);
 	return <Wrapped></Wrapped>;
 }

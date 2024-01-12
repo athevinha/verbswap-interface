@@ -1,13 +1,16 @@
-import { Button, Heading, Image, Box, Text } from '@chakra-ui/react';
+import { Box, Heading, Image, TagRightIcon, Text } from '@chakra-ui/react';
+import { useRouter } from 'next/router';
 import { Fragment } from 'react';
 import styled from 'styled-components';
 import { useWindowSize } from '~/hooks/useWindowSize';
 import loaderImg from '~/public/loader.png';
-import BuyCrypto from '~/assets/svg/buy_crypto.svg';
-import CrossChainIcon from '~/assets/svg/cross_chain_icon.svg';
-import LimitOrderIcon from '~/assets/svg/limit_order.svg';
-import { useRouter } from 'next/router';
-import Link from 'next/link';
+import { CrossIcon } from '../Icons';
+import ForumIcon from '../Icons/ForumIcon';
+import LaunchIcon from '../Icons/LaunchIcon';
+import PoolClassic from '../Icons/PoolClassicIcon';
+import PoolElastic from '../Icons/PoolElasticIcon';
+import Swap from '../Icons/Swap';
+import TransferIcon from '../Icons/TransferIcon';
 const Wrapper = styled.div`
 	position: absolute;
 	z-index: 100;
@@ -46,12 +49,40 @@ const HeaderOption = styled.div`
 	:hover {
 		color: #9ae6b4;
 	}
+	display: flex;
+	align-items: center;
+	gap: 6px;
 	transition: 0.2s;
 	cursor: pointer;
 	color: gray;
 	margin-left: 15px;
 	font-size: 16px;
 	font-weight: 600;
+
+	@media screen and (max-width: ${({ theme }) => theme.bpMed}) {
+		display: inline-grid;
+		text-align: center;
+		gap: 10px;
+		justify-items: center;
+	}
+`;
+const HeaderWrapped = styled.div`
+	display: flex;
+	margin-top: 0;
+	@media screen and (max-width: ${({ theme }) => theme.bpMed}) {
+		position: fixed;
+		text-align: center;
+		justify-content: center;
+		align-items: center;
+		margin-right: 16px;
+		left: -16px;
+		background: black;
+		opacity: 0.9;
+		gap: 20px;
+		width: calc(100vw + 16px);
+		height: 80px;
+		top: calc(100% - 80px);
+	}
 `;
 const Header = ({ children }) => {
 	const { isPhone } = useWindowSize();
@@ -77,52 +108,57 @@ const Header = ({ children }) => {
 						VerbSwap
 					</Text>
 				</Name>
-				{!isPhone && (
-					<Fragment>
-						<HeaderOption
-							onClick={() => {
-								router.push('/');
-							}}
-						>
-							Swap
-						</HeaderOption>
-						{/* <HeaderOption
+				<HeaderWrapped>
+					<HeaderOption
+						onClick={() => {
+							router.push('/');
+						}}
+					>
+						<Swap size={20} rotate={90} /> Swap
+					</HeaderOption>
+					{/* <HeaderOption
 							onClick={() => {
 								router.push('/deposit');
 							}}
 						>
 							Deposit
 						</HeaderOption> */}
-						<HeaderOption
-							onClick={() => {
-								router.push('/pools');
-							}}
-						>
-							Pools
-						</HeaderOption>
-						<HeaderOption
-							onClick={() => {
-								router.push('/analytics');
-							}}
-						>
-							Analytics
-						</HeaderOption>
-						<HeaderOption
+					<HeaderOption
+						onClick={() => {
+							router.push('/pools');
+						}}
+					>
+						<PoolClassic size={15} color="gray" /> Pools
+					</HeaderOption>
+					<HeaderOption
+						onClick={() => {
+							router.push('/dexs');
+						}}
+					>
+						<PoolElastic size={15} /> Dexs
+					</HeaderOption>
+					{/* <HeaderOption
 							onClick={() => {
 								router.push('/about');
 							}}
 						>
 							About
-						</HeaderOption>
-						<HeaderOption
-							onClick={() => {
-								router.push('/');
-							}}
-						>
-							Docs
-						</HeaderOption>
-					</Fragment>
-				)}
+						</HeaderOption> */}
+					<HeaderOption
+						onClick={() => {
+							router.push('/airdrop');
+						}}
+					>
+						<TransferIcon /> Airdrop
+					</HeaderOption>
+					<HeaderOption
+						onClick={() => {
+							router.push('/');
+						}}
+					>
+						<TagRightIcon ml={0} mr={0} /> Docs
+					</HeaderOption>
+				</HeaderWrapped>
 			</Box>
 
 			{/* */}

@@ -1,9 +1,9 @@
 {
-	"short_name": "Llama Swap",
-	"name": "Llama Swap: Meta DEX aggregator",
+	"short_name": "Verb swap",
+	"name": "Verb swap: Meta DEX aggregator",
 	"icons": [
 		{
-			"src": "favicon.ico",
+			"src": "favicon.png",
 			"sizes": "64x64 32x32 24x24 16x16",
 			"type": "image/x-icon"
 		}

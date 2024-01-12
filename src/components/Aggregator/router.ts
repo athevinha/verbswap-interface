@@ -24,6 +24,10 @@ export function getAllChains() {
 			};
 		})
 		.filter(Boolean);
+		console.log(
+			'chain',
+			chainsOptions.map((e) => e.logoURI)
+		);
 	return chainsOptions;
 }
 

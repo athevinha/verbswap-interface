@@ -1,6 +1,6 @@
 import ConnectButton from '~/components/Aggregator/ConnectButton';
 import Header from '~/components/Aggregator/Header';
-import PoolsContainer from '~/components/Tokens';
+import DexsContainer from '~/components/Dexs';
 import Layout from '~/layout';
 // export async function getStaticProps() {
 // 	const tokenList = await getTokenList();
@@ -23,13 +23,13 @@ import Layout from '~/layout';
 // 		}
 // 	};
 // }
-export default function Pools() {
+export default function Dexs() {
 	return (
-		<Layout title={`Pools - VerbSwap`} defaultSEO>
+		<Layout title={`Dexs - VerbSwap`} defaultSEO>
 			<Header>
 				<ConnectButton />
 			</Header>
-			<PoolsContainer />
+			<DexsContainer />
 		</Layout>
 	);
 }

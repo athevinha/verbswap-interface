@@ -71,7 +71,7 @@ const Wrapper = styled.div`
 	display: flex;
 	flex-direction: column;
 	grid-row-gap: 24px;
-	margin: 60px auto;
+	margin: 30px auto;
 
 	h1 {
 		font-weight: 500;
@@ -95,7 +95,7 @@ const Wrapper = styled.div`
 
 	@media screen and (max-width: ${({ theme }) => theme.bpMed}) {
 		flex-direction: column;
-		margin-bottom: 100px;
+		margin-bottom: 10px;
 		display: flex;
 	}
 `;
@@ -626,7 +626,7 @@ export default function PrivateSaleContribute() {
 						<Text color="green.500" as="span" fontWeight="500">
 							$VERB{' '}
 						</Text>{' '}
-						Private Sale Participation
+						Private Sale Participate Rules
 					</Text>
 					<List spacing={3}>
 						<ListItem>
@@ -656,7 +656,11 @@ export default function PrivateSaleContribute() {
 						<ListItem>
 							{' '}
 							<ListIcon color="green.500" />
-							Submit Wallet: [Participate Now](insert link) to join <b>whitelist</b>
+							Submit Wallet:{' '}
+							<Link color={'blue.400'} href={WALLET_SUBMIT_FORM} isExternal>
+								Participate Now
+							</Link>{' '}
+							to join <b>whitelist</b>
 						</ListItem>
 					</List>
 				</Body>

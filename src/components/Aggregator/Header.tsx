@@ -144,12 +144,19 @@ const Header = ({ children }) => {
 						>
 							About
 						</HeaderOption> */}
-					<HeaderOption
+					{/* <HeaderOption
 						onClick={() => {
 							router.push('/airdrop');
 						}}
 					>
 						<TransferIcon /> Airdrop
+					</HeaderOption> */}
+					<HeaderOption
+						onClick={() => {
+							router.push('/privatesale');
+						}}
+					>
+						<TransferIcon /> ICO
 					</HeaderOption>
 					<HeaderOption
 						onClick={() => {

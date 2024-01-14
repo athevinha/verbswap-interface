@@ -86,6 +86,8 @@ import { DepositModal } from './DepositModal';
 import MasterCardIcon from '~/assets/buy-crypto/master-card';
 import VisaIcon from '~/assets/buy-crypto/visa';
 import { DownChevron } from 'react-select/dist/declarations/src/components/indicators';
+import Wallet from '../Icons/Wallet';
+import Swap2 from '../Icons/Swap_2';
 
 /*
 Integrated:
@@ -340,7 +342,6 @@ const ConnectButtonWrapper = styled.div`
 	width: 100%;
 	display: flex;
 	flex-wrap: wrap;
-
 	& button {
 		width: 100%;
 		text-align: center !important;
@@ -1177,23 +1178,24 @@ export function AggregatorContainer({ sandwichList }) {
 
 					<SwapWrapper>
 						{!isConnected ? (
-							<Button colorScheme={'green'} onClick={openConnectModal}>
-								Connect Wallet
+							<Button variant={'outline'} borderRadius={'32px'} onClick={openConnectModal}>
+								<Wallet /> <Text marginLeft="8px">Connect Wallet</Text>
 							</Button>
 						) : !isValidSelectedChain ? (
-							<Button colorScheme={'messenger'} onClick={() => switchNetwork(selectedChain.id)}>
-								Switch Network
+							<Button variant={'outline'} borderRadius={'32px'} onClick={() => switchNetwork(selectedChain.id)}>
+								<Swap2 />
+								<Text marginLeft="8px">Switch Network</Text>
 							</Button>
 						) : insufficientBalance ? (
-							<Button colorScheme={'messenger'} disabled>
+							<Button variant={'outline'} borderRadius={'32px'} disabled>
 								Insufficient Balance
 							</Button>
 						) : !selectedRoute && isSmallScreen && finalSelectedFromToken && finalSelectedToToken ? (
-							<Button colorScheme={'messenger'} onClick={() => setUiState(STATES.ROUTES)}>
+							<Button variant={'outline'} borderRadius={'32px'} onClick={() => setUiState(STATES.ROUTES)}>
 								Select Aggregator
 							</Button>
 						) : hasMaxPriceImpact && !isDegenModeEnabled ? (
-							<Button colorScheme={'messenger'} disabled>
+							<Button variant={'outline'} borderRadius={'32px'} disabled>
 								Price impact is too large
 							</Button>
 						) : (
@@ -1214,9 +1216,10 @@ export function AggregatorContainer({ sandwichList }) {
 														need to reset your approval and approve again`}
 													</Text>
 													<Button
+														borderRadius={'32px'}
+														variant={'outline'}
 														isLoading={isApproveResetLoading}
 														loadingText={isConfirmingResetApproval ? 'Confirming' : 'Preparing transaction'}
-														colorScheme={'messenger'}
 														onClick={() => {
 															if (approveReset) approveReset();
 														}}
@@ -1236,9 +1239,10 @@ export function AggregatorContainer({ sandwichList }) {
 												/>
 											) : (
 												<Button
+													borderRadius={'32px'}
+													variant={'outline'}
 													isLoading={swapMutation.isLoading || isApproveLoading}
 													loadingText={isConfirmingApproval ? 'Confirming' : 'Preparing transaction'}
-													colorScheme={'messenger'}
 													onClick={() => {
 														//scroll Routes into view
 														!selectedRoute && routesRef.current.scrollIntoView({ behavior: 'smooth' });
@@ -1278,7 +1282,8 @@ export function AggregatorContainer({ sandwichList }) {
 
 											{!isApproved && selectedRoute && inifiniteApprovalAllowed.includes(selectedRoute.name) && (
 												<Button
-													colorScheme={'messenger'}
+													borderRadius={'32px'}
+													variant={'outline'}
 													loadingText={isConfirmingInfiniteApproval ? 'Confirming' : 'Preparing transaction'}
 													isLoading={isApproveInfiniteLoading}
 													onClick={() => {
@@ -1300,7 +1305,12 @@ export function AggregatorContainer({ sandwichList }) {
 											{isSmallScreen && warnings?.length ? (
 												<Popover>
 													<PopoverTrigger>
-														<Button backgroundColor={'rgb(224, 148, 17)'} maxWidth="100px">
+														<Button
+															borderRadius={'32px'}
+															variant={'outline'}
+															backgroundColor={'rgb(224, 148, 17)'}
+															maxWidth="100px"
+														>
 															{warnings.length} Warning{warnings.length === 1 ? '' : 's'}
 														</Button>
 													</PopoverTrigger>
@@ -1427,9 +1437,7 @@ export function AggregatorContainer({ sandwichList }) {
 											<ConnectButton />
 										</ConnectButtonWrapper>
 									) : !isValidSelectedChain ? (
-										<Button colorScheme={'messenger'} onClick={() => switchNetwork(selectedChain.id)}>
-											Switch Network
-										</Button>
+										<Button onClick={() => switchNetwork(selectedChain.id)}>Switch Network</Button>
 									) : (
 										<>
 											{router && address && (
@@ -1450,7 +1458,6 @@ export function AggregatorContainer({ sandwichList }) {
 																<Button
 																	isLoading={isApproveResetLoading}
 																	loadingText={isConfirmingResetApproval ? 'Confirming' : 'Preparing transaction'}
-																	colorScheme={'messenger'}
 																	onClick={() => {
 																		if (approveReset) approveReset();
 																	}}
@@ -1470,8 +1477,9 @@ export function AggregatorContainer({ sandwichList }) {
 														) : (
 															<Button
 																isLoading={swapMutation.isLoading || isApproveLoading}
+																variant={'outline'}
+																borderRadius={'32px'}
 																loadingText={isConfirmingApproval ? 'Confirming' : 'Preparing transaction'}
-																colorScheme={'messenger'}
 																onClick={() => {
 																	if (approve) approve();
 
@@ -1506,7 +1514,8 @@ export function AggregatorContainer({ sandwichList }) {
 
 														{!isApproved && selectedRoute && inifiniteApprovalAllowed.includes(selectedRoute.name) && (
 															<Button
-																colorScheme={'messenger'}
+																variant={'outline'}
+																borderRadius={'32px'}
 																loadingText={isConfirmingInfiniteApproval ? 'Confirming' : 'Preparing transaction'}
 																isLoading={isApproveInfiniteLoading}
 																onClick={() => {

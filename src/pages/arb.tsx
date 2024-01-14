@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { AggregatorContainer } from '~/components/Aggregator/Arb';
+// import { AggregatorContainer } from '~/components/Aggregator/Arb';
 import ConnectButton from '~/components/Aggregator/ConnectButton';
 import Layout from '~/layout';
 
@@ -16,7 +16,7 @@ export default function Aggregator(props) {
 	return (
 		<Layout title={`DEX Aggregator - VerbSwap`} defaultSEO>
 			<ConnectButton />
-			<AggregatorContainer {...props} />
+			{/* <AggregatorContainer {...props} /> */}
 		</Layout>
 	);
 }

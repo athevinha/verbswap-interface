@@ -32,5 +32,5 @@ const WrappedRight = styled.div<{ width?: string }>`
 `;
 export default function AirdropContainer() {
 	// const { dexs: dexsWidthChart } = useAnalytics(true, false);
-	return <Wrapped></Wrapped>;
+	return <Wrapped>AirdropContainer</Wrapped>;
 }

@@ -19,6 +19,7 @@ export function InputAmountAndTokenSelect({
 	balance,
 	onMaxClick,
 	tokenPrice,
+	label,
 	priceImpact,
 	placeholder,
 	customSelect,
@@ -37,6 +38,7 @@ export function InputAmountAndTokenSelect({
 		chainId: any;
 		logoURI: string;
 	};
+	label?: string;
 	balance?: string;
 	onMaxClick?: () => void;
 	tokenPrice?: number;
@@ -133,9 +135,9 @@ export function InputAmountAndTokenSelect({
 				<Flex alignItems="center" justifyContent="flex-start" flexWrap="nowrap" gap="8px">
 					{balance && (
 						<>
-							<Text fontSize="0.875rem" fontWeight={300} color="#a2a2a2">{`Balance: ${Number(balance).toFixed(
-								4
-							)}`}</Text>
+							<Text fontSize="0.875rem" fontWeight={300} color="#a2a2a2">{`${label || 'Balance'} : ${Number(
+								balance
+							).toFixed(4)}`}</Text>
 
 							{onMaxClick && (
 								<Button

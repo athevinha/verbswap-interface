@@ -55,7 +55,6 @@ export default function PoolsContainer() {
 				chain: chain.value
 			}
 		});
-		console.log('#chain', chain);
 	};
 	return (
 		<Wrapped>

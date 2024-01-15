@@ -44,7 +44,7 @@ import { useTokenApprove } from './hooks';
 import { useGetRoutes } from '~/queries/useGetRoutes';
 import { useGetPrice } from '~/queries/useGetPrice';
 import { useTokenBalances } from '~/queries/useTokenBalances';
-import { PRICE_IMPACT_WARNING_THRESHOLD, WETH } from './constants';
+import { chainNameToId, PRICE_IMPACT_WARNING_THRESHOLD, WETH } from './constants';
 import Tooltip from '../Tooltip';
 import type { IToken } from '~/types';
 import { sendSwapEvent } from './adapters/utils';
@@ -355,14 +355,15 @@ const ConnectButtonWrapper = styled.div`
 const chains = getAllChains();
 
 export function AggregatorContainer({ sandwichList }) {
-	const tokenList = useTokenList();
 	// wallet stuff
 	const { data: signer } = useSigner();
 	const { address, isConnected } = useAccount();
 	const { chain: chainOnWallet } = useNetwork();
+
 	const { openConnectModal } = useConnectModal();
 	const { switchNetwork } = useSwitchNetwork();
 	const addRecentTransaction = useAddRecentTransaction();
+
 	const wagmiClient = useQueryClient();
 
 	// swap input fields and selected aggregator states
@@ -396,12 +397,16 @@ export function AggregatorContainer({ sandwichList }) {
 	// get selected chain and tokens from URL query params
 	const routesRef = useRef(null);
 	const router = useRouter();
-	const { fromTokenAddress, toTokenAddress } = useQueryParams();
-
-	const { selectedChain, selectedFromToken, selectedToToken, chainTokenList } = useSelectedChainAndTokens({
+	const { fromTokenAddress, toTokenAddress, chainName } = useQueryParams();
+	const { tokenList, tokenListByChain } = useTokenList(chainNameToId(chainName) || chainOnWallet?.id);
+	// console.log('#tokenList', tokenList);
+	const { selectedChain, selectedFromToken, selectedToToken } = useSelectedChainAndTokens({
 		tokens: tokenList
 	});
-
+	// const tokenList[] = useMemo(() => {
+	// 	console.log('#tokenList', tokenList, chainNameToId(chainName));
+	// 	return tokenList?.[chainNameToId(chainName)] || [];
+	// }, [tokenList, chainName]);
 	const isValidSelectedChain = selectedChain && chainOnWallet ? selectedChain.id === chainOnWallet.id : false;
 	const isOutputTrade = amountOut && amountOut !== '';
 
@@ -484,23 +489,24 @@ export function AggregatorContainer({ sandwichList }) {
 
 	const tokensInChain = useMemo(() => {
 		return (
-			chainTokenList
-				?.concat(savedTokens)
-				.map((token) => {
-					const tokenBalance = tokenBalances?.[selectedChain?.id]?.find(
-						(t) => t.address.toLowerCase() === token?.address?.toLowerCase()
-					);
+			(tokenList?.[selectedChain?.id] ||
+				[]
+					?.concat(savedTokens)
+					.map((token) => {
+						const tokenBalance = tokenBalances?.[selectedChain?.id]?.find(
+							(t) => t.address.toLowerCase() === token?.address?.toLowerCase()
+						);
 
-					return {
-						...token,
-						amount: tokenBalance?.amount ?? 0,
-						balanceUSD: tokenBalance?.balanceUSD ?? 0
-					};
-				})
-				.sort((a, b) => b.balanceUSD - a.balanceUSD) ?? []
+						return {
+							...token,
+							amount: tokenBalance?.amount ?? 0,
+							balanceUSD: tokenBalance?.balanceUSD ?? 0
+						};
+					})
+					.sort((a, b) => b.balanceUSD - a.balanceUSD)) ??
+			[]
 		);
-	}, [chainTokenList, selectedChain?.id, tokenBalances, savedTokens]);
-
+	}, [tokenList, selectedChain?.id, tokenBalances, savedTokens]);
 	const { fromTokensList, toTokensList } = useMemo(() => {
 		return {
 			fromTokensList: tokensInChain.filter(({ address }) => address !== finalSelectedToToken?.address),

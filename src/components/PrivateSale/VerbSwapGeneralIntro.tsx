@@ -85,12 +85,12 @@ const VerbSwapGeneralIntro = () => {
 					VerbSwap, the <b>Meta Aggregators</b>. We provide our traders withsuperior token prices by analyzing rates
 					across thousands of exchanges instantly!
 				</Text>{' '}
-				{renderStartEarningButton()}
+				{renderSwapNowButton()}
 				<Text>
 					VerbSwap is also an automated market maker (AMM) with <b>concentrated liquidity</b>. Liquidity providers can
 					add liquidity to our pools & <b>earn fees</b>!
 				</Text>
-				{renderSwapNowButton()}
+				{renderStartEarningButton()}
 			</Box>
 		);
 	}

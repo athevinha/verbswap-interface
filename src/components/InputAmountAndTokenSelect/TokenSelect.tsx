@@ -215,15 +215,15 @@ const SelectModal = ({ isOpen, onClose, data, onClick, selectedChain }) => {
 			: data;
 	}, [debouncedInput, data]);
 
-	const parentRef = useRef();
+	// const parentRef = useRef();
 
-	const rowVirtualizer = useVirtualizer({
-		count: filteredData.length,
-		getScrollElement: () => parentRef.current,
-		estimateSize: (index) => (filteredData[index].isGeckoToken ? 72 : 40),
-		overscan: 10
-	});
-
+	// const rowVirtualizer = useVirtualizer({
+	// 	count: filteredData.length,
+	// 	getScrollElement: () => parentRef.current,
+	// 	estimateSize: (index) => (filteredData[index].isGeckoToken ? 72 : 40),
+	// 	overscan: 10
+	// });
+	console.log('#datasss', data);
 	return (
 		<Modal isCentered isOpen={isOpen} onClose={onClose}>
 			<ModalOverlay />
@@ -261,39 +261,39 @@ const SelectModal = ({ isOpen, onClose, data, onClick, selectedChain }) => {
 					<AddToken address={input} onClick={onClick} selectedChain={selectedChain} />
 				) : null}
 
-				<div
-					ref={parentRef}
+				<HideScroll
+					// ref={parentRef}
 					className="List"
 					style={{
 						height: `390px`,
-						overflow: 'auto',
+						overflow: 'scroll',
 						marginTop: '24px'
 					}}
 				>
 					<div
 						style={{
-							height: `${rowVirtualizer.getTotalSize()}px`,
+							// height: `${rowVirtualizer.getTotalSize()}px`,
 							width: '100%',
 							position: 'relative'
 						}}
 					>
-						{rowVirtualizer.getVirtualItems().map((virtualRow) => (
+						{data.map((token, _) => (
 							<div
-								key={virtualRow.index + filteredData[virtualRow.index].address}
+								key={_}
 								style={{
-									position: 'absolute',
-									top: 0,
-									left: 0,
-									width: '100%',
-									height: filteredData[virtualRow.index].isGeckoToken ? '72px' : '40px',
-									transform: `translateY(${virtualRow.start}px)`
+									// position: 'absolute',
+									// top: 0,
+									// left: 0,
+									width: '100%'
+									// height: filteredData[virtualRow.index].isGeckoToken ? '72px' : '40px',
+									// transform: `translateY(${virtualRow.start}px)`
 								}}
 							>
-								<Row token={filteredData[virtualRow.index]} onClick={onClick} chain={selectedChain} />
+								<Row token={token} onClick={onClick} chain={selectedChain} />
 							</div>
 						))}
 					</div>
-				</div>
+				</HideScroll>
 			</ModalContent>
 		</Modal>
 	);

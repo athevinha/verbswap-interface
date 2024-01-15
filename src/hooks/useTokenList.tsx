@@ -1,15 +1,9 @@
 import { useQueries } from '@tanstack/react-query';
-import { groupBy, mapValues, uniqBy } from 'lodash';
-import { getAllChains } from '~/components/Aggregator/router';
-import { DEFAULT_LIST_OF_LISTS } from '~/constants/listTokens';
+import { unionBy, uniqBy } from 'lodash';
+import { getTokenList, getTokenListByChain } from '~/props/getTokenList';
 import { IToken } from '~/types';
-import multichainListRaw from '../data/multichain/250.json';
-import { protoclIconUrl } from '~/utils';
-import { ethers } from 'ethers';
-import { nativeTokens } from '~/components/Aggregator/nativeTokens';
-import { getTokenList } from '~/props/getTokenList';
 
-export function useTokenList() {
+export function useTokenList(chainId: number) {
 	const res = useQueries({
 		queries: [
 			{
@@ -18,8 +12,25 @@ export function useTokenList() {
 				refetchInterval: 100000,
 				refetchOnWindowFocus: false,
 				refetchIntervalInBackground: false
+			},
+			{
+				queryKey: ['getTokenListByChain____', chainId],
+				queryFn: () => getTokenListByChain(chainId),
+				refetchInterval: 100000,
+				refetchOnWindowFocus: true,
+				refetchIntervalInBackground: false
 			}
 		]
 	});
-	return res[0].data;
+
+	const tokenList = res[0]?.data;
+	if (res[1]?.data?.data?.tokens && tokenList)
+		tokenList[chainId] = uniqBy([...tokenList[chainId], ...res[1]?.data?.data?.tokens], (token: IToken) =>
+			token.address.toLowerCase()
+		);
+	return {
+		tokenList: tokenList,
+		tokenListByChain: res[1]?.data
+	};
 }
+ 

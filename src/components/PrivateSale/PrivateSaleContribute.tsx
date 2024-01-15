@@ -71,7 +71,7 @@ const Wrapper = styled.div`
 	display: flex;
 	flex-direction: column;
 	grid-row-gap: 24px;
-	margin: 30px auto;
+	margin: 60px auto;
 
 	h1 {
 		font-weight: 500;
@@ -95,7 +95,7 @@ const Wrapper = styled.div`
 
 	@media screen and (max-width: ${({ theme }) => theme.bpMed}) {
 		flex-direction: column;
-		margin-bottom: 10px;
+		margin-bottom: 100px;
 		display: flex;
 	}
 `;

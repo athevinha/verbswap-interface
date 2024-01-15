@@ -265,7 +265,20 @@ export async function getTokenList() {
 	console.log('#', tokenlist);
 	return tokenlist;
 }
-
+export async function getTokenListByChain(chainId: number) {
+	return fetch(`https://ks-setting.kyberswap.com/api/v1/tokens?page=1&pageSize=100&isWhitelisted=true&chainIds=${chainId}`).then(r => r.json()).then(res => res)
+}
+// export async function getTokenListByChain(chainId: number) {
+// 	fetch('https://token-list.sushi.com/')
+// 			.then((r) => r.json())
+// 			.then((r) =>
+// 				r.map((token) => ({
+// 					...token,
+// 					logoURI: `https://cdn.sushi.com/image/upload/f_auto,c_limit,w_40,q_auto/tokens/${token.chainId}/${token.address}.jpg`
+// 				}))
+// 			)
+// 			.catch((e) => []),
+// }
 // use multicall to fetch tokens name, symbol and decimals
 const getTokensData = async ([chainId, tokens]: [string, Array<string>]): Promise<[string, Array<IToken>]> => {
 	const chainName = chainIdToName(chainId);

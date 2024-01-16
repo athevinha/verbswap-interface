@@ -60,7 +60,7 @@ const VerbSwapGeneralIntro = () => {
 					borderRadius: '32px'
 				}}
 			>
-				<ExternalLinkIcon color="white" size={20} />
+				<ExternalLinkIcon color="white" />
 				<Text fontSize="14px" marginLeft="8px">
 					Learn more
 				</Text>

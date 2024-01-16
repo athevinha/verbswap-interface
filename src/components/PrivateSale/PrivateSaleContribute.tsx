@@ -218,7 +218,6 @@ export default function PrivateSaleContribute() {
 	});
 	const useICOInformation = () => {
 		const ca = PrivateSale__factory.connect(PRIVATE_SALE_ADDRESS, providers.bsc);
-		ca.c;
 		const _res = useQueries({
 			queries: [
 				{

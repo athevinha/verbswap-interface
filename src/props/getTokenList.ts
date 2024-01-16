@@ -172,9 +172,10 @@ export async function getTokenList() {
 		Object.keys(tokensFiltered).map((chain) => [chain, []]);
 	// );
 
-	const topTokensByVolume = Object.fromEntries(
-		topTokensByChain.filter((chain) => chain !== null && tokensFiltered[chain])
-	);
+	const topTokensByVolume = tokensFiltered;
+	//  Object.fromEntries(
+	// 	topTokensByChain.filter((chain) => chain !== null && tokensFiltered[chain])
+	// );
 
 	// store unique tokens by chain
 	const uniqueTokenList = {};
